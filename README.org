@@ -1,2 +1,4 @@
 #+TITLE: Presentations
 #+AUTHOR: Paul Bartholomew
+
+This repository contains presentations I am giving / have given.
