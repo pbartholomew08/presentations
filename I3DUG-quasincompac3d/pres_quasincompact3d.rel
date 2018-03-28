@@ -1,0 +1,32 @@
+;; RefTeX parse info file
+;; File: /home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex
+;; User: paul (Paul Bartholomew)
+
+(set reftex-docstruct-symbol '(
+
+
+(xr nil "\\\\\\\\\\\\")
+
+(index-tags)
+
+(is-multi nil)
+
+(bibview-cache)
+
+(master-dir . "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/")
+
+(label-numbers ("eq:" . 1))
+
+(bof "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex")
+
+("fig:grav-driven" "f" nil "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex" nil "")
+
+("fig:non-iso_init-cond" "f" nil "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex" nil "")
+
+("fig:jet" "f" nil "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex" nil "")
+
+("eq:1" "e" nil "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex" nil "")
+
+(eof "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex")
+))
+
