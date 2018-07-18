@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Tue Mar 27 23:16:14 2018 (+0100)
+%% Last-Updated: Wed Jul 18 14:12:37 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 499
+%%     Update #: 528
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -60,7 +60,7 @@ urlcolor=blue
 ]{beamer}
 
 \usepackage{graphicx}
-\usepackage{subfigure}
+\usepackage{subcaption}
 \usepackage{natbib}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -399,6 +399,26 @@ urlcolor=blue
 %     \end{itemize}
 %   \end{itemize}
 % \end{frame}
+
+% Scalability tests
+\begin{frame}
+  \frametitle{Testcases}
+  \framesubtitle{Scalability tests\subrule}
+  \begin{figure}[c]
+    \centering
+    \begin{subfigure}[b]{0.49\columnwidth}
+      \includegraphics[width=\columnwidth]{./figures/strong-scaling}
+      \caption{Strong scaling}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\columnwidth}
+      \includegraphics[width=\columnwidth]{./figures/weak-scaling}
+      \caption{Weak scaling}
+    \end{subfigure}
+    \caption{Strong and weak scaling of QuasIncompact3D, performed on \texttt{ARCHER} and
+      \texttt{MARCONI} with periodic BCs}
+    \label{fig:scaling}
+  \end{figure}
+\end{frame}
 
 % 2D Non-isothermal mixing layer
 \begin{frame}
