@@ -55,7 +55,8 @@
     "fig:grav-driven"
     "fig:scaling"
     "fig:non-iso_init-cond"
-    "fig:jet")
+    "fig:jet"
+    "fig:lock-exch")
    (LaTeX-add-bibliographies
     "/home/paul/Documents/Postdoc.bib"))
  :latex)

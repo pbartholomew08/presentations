@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Wed Jul 18 14:12:37 2018 (+0100)
+%% Last-Updated: Wed Jul 18 17:27:54 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 528
+%%     Update #: 561
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -72,6 +72,7 @@ urlcolor=blue
 \usepackage{multimedia}
 
 \setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{navigation symbols}{}
 
 \newcommand{\quasincompact}{\texttt{QuasIncompact3D}}
 \newcommand{\incompact}{\texttt{Incompact3D}}
@@ -133,8 +134,10 @@ urlcolor=blue
     \end{itemize}
   \item Testcases
     \begin{itemize}
+    \item Scaling on \texttt{ARCHER} and \texttt{MARCONI}
     \item 2D mixing layer
     \item Jet
+    \item 2D non-Boussinesq lock-exchange
     \end{itemize}
   \item Conclusion
   \end{itemize}
@@ -246,7 +249,7 @@ urlcolor=blue
   \framesubtitle{Overview\subrule}
 
   \begin{itemize}
-  \item Advance density in time
+  \item Advance density in time\footnote{Alternative algorithm updates temperature}
     \begin{equation*}
       \density^{k+1} = \density^k + \Delta t \vdiv{{\left( \density \vvelocity \right)}^k}
     \end{equation*}
@@ -356,7 +359,8 @@ urlcolor=blue
         \Rightarrow \widetilde{\density} &= {\left( \overline{\nicefrac{1}{\density}} \right)}^{-1}
       \end{split}
     \end{equation*}
-  \item[\textcolor{blue}{\textbf{+}}] Harmonic average is proportional to local minimum
+  \item[\textcolor{blue}{\textbf{+}}] Harmonic average is proportional to local minimum - promoting
+    stability
   \end{itemize}
 \end{frame}
 
@@ -584,6 +588,110 @@ urlcolor=blue
   ]{}{./figures/vort.ogv}
 \end{frame}
 
+% Lock-exchange problem
+\begin{frame}
+  \frametitle{Testcases}
+  \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\footnote{Anecdotally, this case highlights
+      the importance of the guess for $p^{\nu=0}$!}\subrule}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item Two fluids of different densities $\rho_2 > \rho_1$ horizontally separated in a vertical
+        gravity field
+      \item $\nu_1 = \nu_2$ $\Rightarrow$ test of variable viscosity implementation
+      \item Results to be validated against data of \citet{Birman2005}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}[c]
+        \centering
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma0998-rho-000_colourplot}
+          \caption{$t=0$}
+        \end{subfigure}
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma0998-rho-002_colourplot}
+          \caption{$t=2$}
+        \end{subfigure}
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma0998-rho-010_colourplot}
+          \caption{$t=10$}
+        \end{subfigure}
+        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.998$}
+        \label{fig:lock-exch}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+\begin{frame}
+  \frametitle{Testcases}
+  \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\footnote{Anecdotally, this case highlights
+      the importance of the guess for $p^{\nu=0}$!}\subrule}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item Two fluids of different densities $\rho_2 > \rho_1$ horizontally separated in a vertical
+        gravity field
+      \item $\nu_1 = \nu_2$ $\Rightarrow$ test of variable viscosity implementation
+      \item Results to be validated against data of \citet{Birman2005}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}[c]
+        \centering
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma092-rho-000_colourplot}
+          \caption{$t=0$}
+        \end{subfigure}
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma092-rho-002_colourplot}
+          \caption{$t=2$}
+        \end{subfigure}
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma092-rho-010_colourplot}
+          \caption{$t=10$}
+        \end{subfigure}
+        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.92$}
+        \label{fig:lock-exch}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+\begin{frame}
+  \frametitle{Testcases}
+  \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\footnote{Anecdotally, this case highlights
+      the importance of the guess for $p^{\nu=0}$!}\subrule}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item Two fluids of different densities $\rho_2 > \rho_1$ horizontally separated in a vertical
+        gravity field
+      \item $\nu_1 = \nu_2$ $\Rightarrow$ test of variable viscosity implementation
+      \item Results to be validated against data of \citet{Birman2005}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}[c]
+        \centering
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/varcoeff-gamma02-rho-000_colourplot}
+          \caption{$t=0$}
+        \end{subfigure}
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/varcoeff-gamma02-rho-002_colourplot}
+          \caption{$t=2$}
+        \end{subfigure}
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/varcoeff-gamma02-rho-010_colourplot}
+          \caption{$t=10$}
+        \end{subfigure}
+        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.2$}
+        \label{fig:lock-exch}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Conclusion
 \begin{frame}
@@ -601,7 +709,8 @@ urlcolor=blue
     \begin{column}{0.5\textwidth}
       \begin{itemize}
       \item Complete simulation of buoyant, turbulent jets
-      \item Multicomponent flows
+      \item Complete validation of non-Boussinesq lock-exchange in 2D
+      \item Investigate 3D non-Boussinesq lock-exchange problem
       \end{itemize}
     \end{column}
   \end{columns}

@@ -1,5 +1,11 @@
 \begin{thebibliography}{}
 
+\bibitem[Birman {\em et~al.}(2005)Birman, Martin, and Meiburg]{Birman2005}
+Birman, V.~K., Martin, J.~E., and Meiburg, E. (2005).
+\newblock The non-{{Boussinesq}} lock-exchange problem. {{Part}} 2.
+  {{High}}-resolution simulations.
+\newblock {\em Journal of Fluid Mechanics\/}, {\bf 537}(-1), 125.
+
 \bibitem[Chorin(1997)Chorin]{Chorin1997}
 Chorin, A.~J. (1997).
 \newblock A numerical method for solving incompressible viscous flow problems.
