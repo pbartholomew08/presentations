@@ -52,21 +52,6 @@
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 
-%% This program is free software: you can redistribute it and/or modify
-%% it under the terms of the GNU General Public License as published by
-%% the Free Software Foundation, either version 3 of the License, or (at
-%% your option) any later version.
-%% 
-%% This program is distributed in the hope that it will be useful, but
-%% WITHOUT ANY WARRANTY; without even the implied warranty of
-%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-%% General Public License for more details.
-%% 
-%% You should have received a copy of the GNU General Public License
-%% along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 
 %%% Code:
 
 \documentclass[
@@ -111,12 +96,13 @@ urlcolor=blue
 \newcommand{\massfrac}{Y}
 \newcommand{\Schmidt}{Sc}
 \newcommand{\diffcoeff}{\mathcal{D}}
+\newcommand{\orderof}[1]{\mathcal{O} \left( #1 \right)}
 
 \newcommand{\subrule}{\vspace{0.1cm}\hrule}
 
 \title{Simulations of Variable-Density Flows in the Low Mach Number Limit}
 \author{Paul Bartholomew\\Sylvain Laizet}
-\date{March 28, 2018\\\vspace{0.5cm}\incompact\ User Group Meeting}
+\date{}
 
 \begin{document}
 
@@ -303,8 +289,9 @@ urlcolor=blue
   \item[\textcolor{red}{\textbf{--}}] Need an approximation for $\vdiv{{\left( \density \vvelocity
         \right)}^{k+1}}$
     \begin{equation*}
-      \vdiv{{\left( \density \vvelocity \right)}^{k+1}} = - \left. \frac{\partial
-          \density}{\partial t} \right|^{k+1} \approx -\frac{\density^{k+1} - \density^k}{\Delta t}
+      \vdiv{{\left( \density \vvelocity \right)}^{k+1}} = - \left. \frac{\partial \density}{\partial
+          t} \right|^{k+1} \approx -\frac{\density^{k+1} - \density^k}{\Delta t} + \orderof{\Delta
+        t}
     \end{equation*}
   \end{itemize}
 \end{frame}
@@ -320,7 +307,7 @@ urlcolor=blue
       \vdiv{\frac{1}{\density} \vgrad{\widetilde{p^{\left( 1 \right)}}^{k+1}}} = \frac{1}{\Delta t}
       \left( \vdiv{\vvelocity^{\star}} - \vdiv{\vvelocity^{k+1}} \right)
     \end{equation*}
-  \item Cannot solve directly using FFT solver
+  \item Cannot solve directly using spectral solver
   \item Iterative solver
   \end{itemize}
   \begin{align*}
@@ -507,7 +494,7 @@ urlcolor=blue
       VC $\density_0$ & $13.75$ \\
       VC $\density_h$ & $7.88$ \\
       \midrule
-                           & \textbf{Time in Poisson [\%]} \\
+                           & \textbf{Time (its) in Poisson [\%]} \\
       \midrule
       CC & $23.4$ ($1$) \\
       VC $\density_0$ & $94.2$ ($34.1$) \\
@@ -569,12 +556,12 @@ urlcolor=blue
   % \includemovie[]{}{}{./figures/vort.mp4}
 
   % multimedia
-    \movie[
-    height=0.6\textheight,
-    width=\textwidth,
-    poster,
-    autostart
-    ]{}{./figures/vort.ogv}
+  \movie[
+  height=0.6\textheight,
+  width=\textwidth,
+  poster,
+  autostart
+  ]{}{./figures/vort.ogv}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
