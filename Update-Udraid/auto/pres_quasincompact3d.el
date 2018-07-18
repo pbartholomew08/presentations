@@ -4,12 +4,12 @@
    (TeX-add-to-alist 'LaTeX-provided-class-options
                      '(("beamer" "linkcolor=red" "urlcolor=blue")))
    (add-to-list 'LaTeX-verbatim-environments-local "semiverbatim")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperbaseurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-run-style-hooks
     "latex2e"
@@ -18,7 +18,7 @@
     "beamer"
     "beamer10"
     "graphicx"
-    "subfigure"
+    "subcaption"
     "natbib"
     "tikz"
     "pgfplots"
@@ -27,6 +27,7 @@
     "booktabs"
     "multimedia")
    (TeX-add-symbols
+    '("orderof" 1)
     '("vgrad" 1)
     '("vdiv" 1)
     '("vvect" 1)
@@ -52,6 +53,7 @@
     "subrule")
    (LaTeX-add-labels
     "fig:grav-driven"
+    "fig:scaling"
     "fig:non-iso_init-cond"
     "fig:jet")
    (LaTeX-add-bibliographies
