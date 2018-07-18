@@ -1,0 +1,14 @@
+\begin{thebibliography}{}
+
+\bibitem[Chorin(1997)Chorin]{Chorin1997}
+Chorin, A.~J. (1997).
+\newblock A numerical method for solving incompressible viscous flow problems.
+\newblock {\em Journal of computational physics\/}, {\bf 135}(2), 118--125.
+
+\bibitem[Nicoud(2000)Nicoud]{Nicoud2000}
+Nicoud, F. (2000).
+\newblock Conservative {{High}}-{{Order Finite}}-{{Difference Schemes}} for
+  {{Low}}-{{Mach Number Flows}}.
+\newblock {\em Journal of Computational Physics\/}, {\bf 158}(1), 71--97.
+
+\end{thebibliography}
