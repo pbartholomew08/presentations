@@ -1,5 +1,5 @@
 ;; RefTeX parse info file
-;; File: /home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex
+;; File: /home/paul/src/latex/presentations/Update-Udraid/pres_quasincompact3d.tex
 ;; User: paul (Paul Bartholomew)
 
 (set reftex-docstruct-symbol '(
@@ -9,24 +9,36 @@
 
 (index-tags)
 
-(is-multi nil)
+(is-multi t)
 
 (bibview-cache)
 
-(master-dir . "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/")
+(master-dir . "/home/paul/src/latex/presentations/Update-Udraid/")
 
-(label-numbers ("eq:" . 1))
+(label-numbers)
 
-(bof "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex")
+(bof "/home/paul/src/latex/presentations/Update-Udraid/pres_quasincompact3d.tex")
 
-("fig:grav-driven" "f" nil "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex" nil "")
+("fig:grav-driven" "f" "Gravity-driven flow simulated by \\incompact\\footnote{\\url{https://twitter.com/incompact3d}}" "/home/paul/src/latex/presentations/Update-Udraid/pres_quasincompact3d.tex" nil)
 
-("fig:non-iso_init-cond" "f" nil "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex" nil "")
+("fig:scaling" "f" nil "/home/paul/src/latex/presentations/Update-Udraid/pres_quasincompact3d.tex" nil "")
 
-("fig:jet" "f" nil "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex" nil "")
+(bof "/home/paul/src/latex/presentations/Update-Udraid/figures/nonisotherm_initcond.tex")
 
-("eq:1" "e" nil "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex" nil "")
+(eof "/home/paul/src/latex/presentations/Update-Udraid/figures/nonisotherm_initcond.tex")
 
-(eof "/home/paul/src/LaTeX/postdoc-papers/pres_quasincompact3d/pres_quasincompact3d.tex")
+("fig:non-iso_init-cond" "f" "Diagram of non-isothermal mixing layer" "/home/paul/src/latex/presentations/Update-Udraid/pres_quasincompact3d.tex" nil)
+
+(bof "/home/paul/src/latex/presentations/Update-Udraid/figures/jet.tex")
+
+(eof "/home/paul/src/latex/presentations/Update-Udraid/figures/jet.tex")
+
+("fig:jet" "f" "Diagram of jet" "/home/paul/src/latex/presentations/Update-Udraid/pres_quasincompact3d.tex" nil)
+
+("fig:lock-exch" "f" nil "/home/paul/src/latex/presentations/Update-Udraid/pres_quasincompact3d.tex" nil "")
+
+(bib "/home/paul/Documents/Postdoc.bib")
+
+(eof "/home/paul/src/latex/presentations/Update-Udraid/pres_quasincompact3d.tex")
 ))
 
