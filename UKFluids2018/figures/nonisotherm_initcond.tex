@@ -1,0 +1,85 @@
+%%% nonisotherm_initcond.tex --- 
+%% 
+%% Filename: nonisotherm_initcond.tex
+%% Description: 
+%% Author: Paul Bartholomew
+%% Maintainer: 
+%% Created: Mon Mar 12 12:26:52 2018 (+0000)
+%% Version: 
+%% Package-Requires: ()
+%% Last-Updated: Tue Mar 13 14:37:45 2018 (+0000)
+%%           By: Paul Bartholomew
+%%     Update #: 52
+%% URL: 
+%% Doc URL: 
+%% Keywords: 
+%% Compatibility: 
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%%% Commentary: 
+%% 
+%% 
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%%% Change Log:
+%% 
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%% This program is free software: you can redistribute it and/or modify
+%% it under the terms of the GNU General Public License as published by
+%% the Free Software Foundation, either version 3 of the License, or (at
+%% your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful, but
+%% WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+%% General Public License for more details.
+%% 
+%% You should have received a copy of the GNU General Public License
+%% along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%%% Code:
+
+\resizebox{\columnwidth}{0.5\textheight}
+{
+  \begin{tikzpicture}
+    \begin{axis}[
+      xmin = -1.5, xmax = 1.5,
+      ymin = -2, ymax = 2,
+      axis lines = center,
+      xlabel = $x$,
+      ylabel = $y$,
+      xticklabels={,,},
+      yticklabels={,,}
+      ]
+      
+      \addplot [mark = none]
+      table [x=x, y=y, col sep=comma] {figures/atanhx.csv};
+      
+      \draw [->, thick] (axis cs: 0, 1.5) -- (axis cs: 1, 1.5);
+      \node at (axis cs: 1.25, 1.5) {$\velocity_1$};
+      \draw [->, thick] (axis cs: 0, -1.5) -- (axis cs: -1, -1.5);
+      \node at (axis cs: -1.25, -1.5) {$\velocity_2$};
+      
+      \draw [dashed] (axis cs: 0, 0) -- (axis cs: 1.2, 0.66);
+      \draw [<->] (axis cs: 1, 0) -- (axis cs: 1, 0.55);
+      \node at (axis cs: 1.1, 0.25) {$\delta$};
+      
+      \node at (axis cs: -1, 1) {$\temperature_1$};
+      \node at (axis cs: 1, -1) {$\temperature_2$};
+    \end{axis}
+  \end{tikzpicture}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% nonisotherm_initcond.tex ends here
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../pres_quasincompact3d"
+%%% End:
