@@ -1,0 +1,6 @@
+auto
+*.bib
+*.blg
+*.log
+*.bbl
+*.synctex.gz

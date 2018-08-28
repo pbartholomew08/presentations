@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Wed Jul 18 17:27:54 2018 (+0100)
+%% Last-Updated: Tue Aug 28 09:54:25 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 561
+%%     Update #: 567
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -101,7 +101,7 @@ urlcolor=blue
 
 \newcommand{\subrule}{\vspace{0.1cm}\hrule}
 
-\title{Simulations of Variable-Density Flows in the Low Mach Number Limit}
+\title{Simulating Variable Density Flows in the Low-Mach Number Limit with \incompact}
 \author{Paul Bartholomew\\Sylvain Laizet}
 \date{}
 
@@ -136,7 +136,7 @@ urlcolor=blue
     \begin{itemize}
     \item Scaling on \texttt{ARCHER} and \texttt{MARCONI}
     \item 2D mixing layer
-    \item Jet
+    % \item Jet
     \item 2D non-Boussinesq lock-exchange
     \end{itemize}
   \item Conclusion
@@ -150,7 +150,7 @@ urlcolor=blue
   % As the title says, what problem are we trying to solve?
   \begin{itemize}
   \item \incompact\ provides powerful capabilities for solving \textit{incompressible} flows\ldots
-  \item or flows with small density variations
+  \item or flows with small density variations ($\Delta \rho \widetilde{<} 0.01 \rho_0$)
   \end{itemize}
   \begin{figure}[h]
     \centering
@@ -537,56 +537,56 @@ urlcolor=blue
 %   \framesubtitle{2D Non-Isothermal Mixing Layer - Discussion\subrule}
 % \end{frame}
 
-% Jet flow
-\begin{frame}
-  \frametitle{Testcases}
-  \framesubtitle{Jet\subrule}
+% % Jet flow
+% \begin{frame}
+%   \frametitle{Testcases}
+%   \framesubtitle{Jet\subrule}
 
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-      \item Jet is heated above ambient ($\temperature_j = 568\ K,\ \temperature_a = 300\ K$)
-      % \item Small co-flow ($0.1$\% of $u_j$) for numerical stability
-      \item Convective outflow boundary condition, convecting velocity chosen to satisfy
-        \begin{equation*}
-          \begin{split}
-            \dtrans{\pressure^{\left( 0 \right)}} &= 0 \\
-            \Rightarrow \int_{\partial \Omega} \vvelocity \cdot \widehat{\vvect{n}} dS &=
-            \frac{\int_{\partial \Omega} k \vgrad{\temperature} \cdot \widehat{\vvect{n}}
-              dS}{p^{\left( 0 \right)} \Reynolds \Prandtl}
-          \end{split}
-        \end{equation*}
-      \item Free-slip applied at lateral boundaries
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      \begin{figure}
-        \centering
-        \input{./figures/jet}
-        \caption{Diagram of jet}\label{fig:jet}
-      \end{figure}
-    \end{column}
-  \end{columns}
-\end{frame}
-\begin{frame}
-  \frametitle{Testcases}
-  \framesubtitle{Jet - Results\subrule}
+%   \begin{columns}
+%     \begin{column}{0.5\textwidth}
+%       \begin{itemize}
+%       \item Jet is heated above ambient ($\temperature_j = 568\ K,\ \temperature_a = 300\ K$)
+%       % \item Small co-flow ($0.1$\% of $u_j$) for numerical stability
+%       \item Convective outflow boundary condition, convecting velocity chosen to satisfy
+%         \begin{equation*}
+%           \begin{split}
+%             \dtrans{\pressure^{\left( 0 \right)}} &= 0 \\
+%             \Rightarrow \int_{\partial \Omega} \vvelocity \cdot \widehat{\vvect{n}} dS &=
+%             \frac{\int_{\partial \Omega} k \vgrad{\temperature} \cdot \widehat{\vvect{n}}
+%               dS}{p^{\left( 0 \right)} \Reynolds \Prandtl}
+%           \end{split}
+%         \end{equation*}
+%       \item Free-slip applied at lateral boundaries
+%       \end{itemize}
+%     \end{column}
+%     \begin{column}{0.45\textwidth}
+%       \begin{figure}
+%         \centering
+%         \input{./figures/jet}
+%         \caption{Diagram of jet}\label{fig:jet}
+%       \end{figure}
+%     \end{column}
+%   \end{columns}
+% \end{frame}
+% \begin{frame}
+%   \frametitle{Testcases}
+%   \framesubtitle{Jet - Results\subrule}
 
-  % % media9
-  % \includemedia[activate=pageopen,
-  % height=\textheight]{}{./figures/vort.ogv}
+%   % % media9
+%   % \includemedia[activate=pageopen,
+%   % height=\textheight]{}{./figures/vort.ogv}
 
-  % % movie15
-  % \includemovie[]{}{}{./figures/vort.mp4}
+%   % % movie15
+%   % \includemovie[]{}{}{./figures/vort.mp4}
 
-  % multimedia
-  \movie[
-  height=0.6\textheight,
-  width=\textwidth,
-  poster,
-  autostart
-  ]{}{./figures/vort.ogv}
-\end{frame}
+%   % multimedia
+%   \movie[
+%   height=0.6\textheight,
+%   width=\textwidth,
+%   poster,
+%   autostart
+%   ]{}{./figures/vort.ogv}
+% \end{frame}
 
 % Lock-exchange problem
 \begin{frame}
