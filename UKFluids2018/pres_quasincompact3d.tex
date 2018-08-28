@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Tue Aug 28 12:03:00 2018 (+0100)
+%% Last-Updated: Tue Aug 28 16:11:24 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 582
+%%     Update #: 586
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -35,14 +35,12 @@
 %% --- Variable-coefficient                 TODO                    7
 %% --- Discussion - pros/cons               TODO                    8
 %% Test-cases:                              TODO
-%% - Overview                               TODO                    9
+%% - Scaling                                TODO                    9
 %% - 2D Mixing layer:                       TODO                   
 %% --- Detailed description of case         TODO                   10
 %% --- Comparison with Golanski2005         TODO                   11
 %% --- Discussion                           TODO                   12
-%% - Jet:                                   TODO
-%% --- Detailed description of case         TODO                   13
-%% --- Analysis of results                  TODO                   14
+%% - Non-Boussinesq Gravity Currents        TODO
 %% Conclusion + Further work                TODO                   15
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -338,35 +336,6 @@ urlcolor=blue
 
 \begin{frame}
   \frametitle{Numerical Method}
-  \framesubtitle{The Poisson Equation - Variable Coefficient, Choice of
-    $\widetilde{\density}$\subrule}
-
-  \begin{itemize}
-  \item Free choice of $\widetilde{\density}$
-  \item Choice of $\widetilde{\density}$ will affect convergence
-  \item Typical choices are an average or minimum value, $\widetilde{\density} = \density_0$
-    \begin{itemize}
-    \item Stems from `\textit{brute force}' derivation of iteration equation
-    \end{itemize}
-  \item Chain-rule suggests $\widetilde{\density}$ should vary in space
-    \begin{equation*}
-      \begin{split}
-        \vdiv{\frac{1}{\density} \vgrad{\widetilde{\pressure^{\left( 1 \right)}}}} &=
-        \frac{1}{\density} {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}} +
-        \vgrad{\frac{1}{\density}} \cdot \vgrad{\widetilde{\pressure^{\left( 1 \right)}}} \\
-        &= \frac{1}{\density} {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}} + \left(
-          \vdiv{\frac{1}{\density} \vgrad{\widetilde{\pressure^{\left( 1 \right)}}}} -
-          \frac{1}{\density} {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}} \right) \\
-        \Rightarrow \widetilde{\density} &= {\left( \overline{\nicefrac{1}{\density}} \right)}^{-1}
-      \end{split}
-    \end{equation*}
-  \item[\textcolor{blue}{\textbf{+}}] Harmonic average is proportional to local minimum - promoting
-    stability
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Numerical Method}
   \framesubtitle{The Poisson Equation - Discussion\subrule}
 
   \begin{itemize}
@@ -538,57 +507,6 @@ urlcolor=blue
 %   \framesubtitle{2D Non-Isothermal Mixing Layer - Discussion\subrule}
 % \end{frame}
 
-% % Jet flow
-% \begin{frame}
-%   \frametitle{Results}
-%   \framesubtitle{Jet\subrule}
-
-%   \begin{columns}
-%     \begin{column}{0.5\textwidth}
-%       \begin{itemize}
-%       \item Jet is heated above ambient ($\temperature_j = 568\ K,\ \temperature_a = 300\ K$)
-%       % \item Small co-flow ($0.1$\% of $u_j$) for numerical stability
-%       \item Convective outflow boundary condition, convecting velocity chosen to satisfy
-%         \begin{equation*}
-%           \begin{split}
-%             \dtrans{\pressure^{\left( 0 \right)}} &= 0 \\
-%             \Rightarrow \int_{\partial \Omega} \vvelocity \cdot \widehat{\vvect{n}} dS &=
-%             \frac{\int_{\partial \Omega} k \vgrad{\temperature} \cdot \widehat{\vvect{n}}
-%               dS}{p^{\left( 0 \right)} \Reynolds \Prandtl}
-%           \end{split}
-%         \end{equation*}
-%       \item Free-slip applied at lateral boundaries
-%       \end{itemize}
-%     \end{column}
-%     \begin{column}{0.45\textwidth}
-%       \begin{figure}
-%         \centering
-%         \input{./figures/jet}
-%         \caption{Diagram of jet}\label{fig:jet}
-%       \end{figure}
-%     \end{column}
-%   \end{columns}
-% \end{frame}
-% \begin{frame}
-%   \frametitle{Results}
-%   \framesubtitle{Jet - Results\subrule}
-
-%   % % media9
-%   % \includemedia[activate=pageopen,
-%   % height=\textheight]{}{./figures/vort.ogv}
-
-%   % % movie15
-%   % \includemovie[]{}{}{./figures/vort.mp4}
-
-%   % multimedia
-%   \movie[
-%   height=0.6\textheight,
-%   width=\textwidth,
-%   poster,
-%   autostart
-%   ]{}{./figures/vort.ogv}
-% \end{frame}
-
 % Lock-exchange problem
 \begin{frame}
   \frametitle{Results}
@@ -739,6 +657,35 @@ urlcolor=blue
 \begin{frame}<beamer:0> % Suppress references page
   \bibliographystyle{natbib}
   \bibliography{/home/paul/Documents/Postdoc.bib}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numerical Method}
+  \framesubtitle{The Poisson Equation - Variable Coefficient, Choice of
+    $\widetilde{\density}$\subrule}
+
+  \begin{itemize}
+  \item Free choice of $\widetilde{\density}$
+  \item Choice of $\widetilde{\density}$ will affect convergence
+  \item Typical choices are an average or minimum value, $\widetilde{\density} = \density_0$
+    \begin{itemize}
+    \item Stems from `\textit{brute force}' derivation of iteration equation
+    \end{itemize}
+  \item Chain-rule suggests $\widetilde{\density}$ should vary in space
+    \begin{equation*}
+      \begin{split}
+        \vdiv{\frac{1}{\density} \vgrad{\widetilde{\pressure^{\left( 1 \right)}}}} &=
+        \frac{1}{\density} {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}} +
+        \vgrad{\frac{1}{\density}} \cdot \vgrad{\widetilde{\pressure^{\left( 1 \right)}}} \\
+        &= \frac{1}{\density} {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}} + \left(
+          \vdiv{\frac{1}{\density} \vgrad{\widetilde{\pressure^{\left( 1 \right)}}}} -
+          \frac{1}{\density} {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}} \right) \\
+        \Rightarrow \widetilde{\density} &= {\left( \overline{\nicefrac{1}{\density}} \right)}^{-1}
+      \end{split}
+    \end{equation*}
+  \item[\textcolor{blue}{\textbf{+}}] Harmonic average is proportional to local minimum - promoting
+    stability
+  \end{itemize}
 \end{frame}
 \end{document}
 
