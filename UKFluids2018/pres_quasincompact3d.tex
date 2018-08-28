@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Tue Aug 28 09:54:25 2018 (+0100)
+%% Last-Updated: Tue Aug 28 12:03:00 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 567
+%%     Update #: 582
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -102,7 +102,8 @@ urlcolor=blue
 \newcommand{\subrule}{\vspace{0.1cm}\hrule}
 
 \title{Simulating Variable Density Flows in the Low-Mach Number Limit with \incompact}
-\author{Paul Bartholomew\\Sylvain Laizet}
+\author{Paul Bartholomew\\Sylvain Laizet\\[1\baselineskip] Dept. Aeronautics\\Imperial College
+  London\\[1\baselineskip] UKFluids, Manchester,\\5 September 2018}
 \date{}
 
 \begin{document}
@@ -127,17 +128,17 @@ urlcolor=blue
     \item Motivation
     \item The Low Mach Number (LMN) approximation
     \end{itemize}
-  \item \quasincompact:\ the implementation of LMN in \incompact
+  \item \quasincompact: LMN in \incompact
     \begin{itemize}
     \item Algorithm to solve LMN
     \item Treatment of pressure equation
     \end{itemize}
-  \item Testcases
+  \item Results
     \begin{itemize}
     \item Scaling on \texttt{ARCHER} and \texttt{MARCONI}
     \item 2D mixing layer
     % \item Jet
-    \item 2D non-Boussinesq lock-exchange
+    \item Non-Boussinesq gravity currents
     \end{itemize}
   \item Conclusion
   \end{itemize}
@@ -287,8 +288,8 @@ urlcolor=blue
             \right)}^{k+1}}
       \right)
     \end{equation*}
-  \item[\textcolor{blue}{\textbf{+}}] Constant coefficient Poisson equation: direct solution
-    possible
+  \item[\textcolor{blue}{\textbf{+}}] Constant coefficient Poisson equation: direct solvers
+    available 
   \item[\textcolor{red}{\textbf{--}}] Need an approximation for $\vdiv{{\left( \density \vvelocity
         \right)}^{k+1}}$
     \begin{equation*}
@@ -307,14 +308,14 @@ urlcolor=blue
   \item Alternatively, $\vdiv{\vvelocity^{k+1}}$ is available as a
     constraint\footnote{\textit{c.f.} incompressible flow: $\vdiv{\vvelocity} = 0$}
     \begin{equation*}
-      \vdiv{\frac{1}{\density} \vgrad{\widetilde{p^{\left( 1 \right)}}^{k+1}}} = \frac{1}{\Delta t}
-      \left( \vdiv{\vvelocity^{\star}} - \vdiv{\vvelocity^{k+1}} \right)
+      \Rightarrow \vdiv{\frac{1}{\density} \vgrad{\widetilde{p^{\left( 1 \right)}}^{k+1}}} =
+      \frac{1}{\Delta t} \left( \vdiv{\vvelocity^{\star}} - \vdiv{\vvelocity^{k+1}} \right)
     \end{equation*}
   \item Cannot solve directly using spectral solver
   \item Iterative solver
   \end{itemize}
   \begin{align*}
-    {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}}^{\poissiter+1} &= {\nabla}^2
+    {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}}^{\poissiter+1} =& {\nabla}^2
                                                                          \widetilde{\pressure^{\left(
                                                                          1 \right)}}^{\poissiter}
                                                                          + \widetilde{\density}
@@ -388,10 +389,10 @@ urlcolor=blue
 \end{frame}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %% Testcases
+% %% Results
 
 % \begin{frame}
-%   \frametitle{Testcases}
+%   \frametitle{Results}
 %   \framesubtitle{Overview\subrule}
 
 %   \begin{itemize}
@@ -406,7 +407,7 @@ urlcolor=blue
 
 % Scalability tests
 \begin{frame}
-  \frametitle{Testcases}
+  \frametitle{Results}
   \framesubtitle{Scalability tests\subrule}
   \begin{figure}[c]
     \centering
@@ -426,7 +427,7 @@ urlcolor=blue
 
 % 2D Non-isothermal mixing layer
 \begin{frame}
-  \frametitle{Testcases}
+  \frametitle{Results}
   \framesubtitle{2D Non-Isothermal Mixing Layer - Initial \& Boundary Conditions\subrule}
   \begin{columns}
     \begin{column}{0.6\textwidth}
@@ -457,7 +458,7 @@ urlcolor=blue
 \end{frame}
 
 \begin{frame}
-  \frametitle{Testcases}
+  \frametitle{Results}
   \framesubtitle{2D Non-Isothermal Mixing Layer - Results (Vorticity)\subrule}
 
   \begin{tabular}{c c c c}
@@ -472,7 +473,7 @@ urlcolor=blue
   \end{tabular}
 \end{frame}
 \begin{frame}
-  \frametitle{Testcases}
+  \frametitle{Results}
   \framesubtitle{2D Non-Isothermal Mixing Layer - Results (Density)\subrule}
 
   \begin{tabular}{c c c c}
@@ -488,7 +489,7 @@ urlcolor=blue
 \end{frame}
 
 \begin{frame}
-  \frametitle{Testcases}
+  \frametitle{Results}
   \framesubtitle{2D Non-Isothermal Mixing Layer - Results (Error in $\vdiv{\vvelocity}^{k+1}$)\subrule}
   \begin{figure}[h]
     \centering
@@ -498,7 +499,7 @@ urlcolor=blue
 \end{frame}
 
 \begin{frame}
-  \frametitle{Testcases}
+  \frametitle{Results}
   \framesubtitle{2D Non-Isothermal Mixing Layer - Results (Performance Comparison)\subrule}
 
   % \begin{columns}
@@ -533,13 +534,13 @@ urlcolor=blue
 \end{frame}
 
 % \begin{frame}
-%   \frametitle{Testcases}
+%   \frametitle{Results}
 %   \framesubtitle{2D Non-Isothermal Mixing Layer - Discussion\subrule}
 % \end{frame}
 
 % % Jet flow
 % \begin{frame}
-%   \frametitle{Testcases}
+%   \frametitle{Results}
 %   \framesubtitle{Jet\subrule}
 
 %   \begin{columns}
@@ -569,7 +570,7 @@ urlcolor=blue
 %   \end{columns}
 % \end{frame}
 % \begin{frame}
-%   \frametitle{Testcases}
+%   \frametitle{Results}
 %   \framesubtitle{Jet - Results\subrule}
 
 %   % % media9
@@ -590,7 +591,7 @@ urlcolor=blue
 
 % Lock-exchange problem
 \begin{frame}
-  \frametitle{Testcases}
+  \frametitle{Results}
   \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\footnote{Anecdotally, this case highlights
       the importance of the guess for $p^{\nu=0}$!}\subrule}
   \begin{columns}
@@ -617,14 +618,13 @@ urlcolor=blue
           \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma0998-rho-010_colourplot}
           \caption{$t=10$}
         \end{subfigure}
-        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.998$}
-        \label{fig:lock-exch}
+        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.998$}\label{fig:lock-exch}
       \end{figure}
     \end{column}
   \end{columns}
 \end{frame}
 \begin{frame}
-  \frametitle{Testcases}
+  \frametitle{Results}
   \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\footnote{Anecdotally, this case highlights
       the importance of the guess for $p^{\nu=0}$!}\subrule}
   \begin{columns}
@@ -651,14 +651,13 @@ urlcolor=blue
           \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma092-rho-010_colourplot}
           \caption{$t=10$}
         \end{subfigure}
-        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.92$}
-        \label{fig:lock-exch}
+        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.92$}\label{fig:lock-exch}
       \end{figure}
     \end{column}
   \end{columns}
 \end{frame}
 \begin{frame}
-  \frametitle{Testcases}
+  \frametitle{Results}
   \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\footnote{Anecdotally, this case highlights
       the importance of the guess for $p^{\nu=0}$!}\subrule}
   \begin{columns}
@@ -685,8 +684,7 @@ urlcolor=blue
           \includegraphics[width=\columnwidth]{./figures/varcoeff-gamma02-rho-010_colourplot}
           \caption{$t=10$}
         \end{subfigure}
-        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.2$}
-        \label{fig:lock-exch}
+        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.2$}\label{fig:lock-exch}
       \end{figure}
     \end{column}
   \end{columns}
