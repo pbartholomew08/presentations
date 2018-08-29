@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Tue Aug 28 17:00:30 2018 (+0100)
+%% Last-Updated: Wed Aug 29 16:15:44 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 610
+%%     Update #: 626
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -488,94 +488,42 @@ urlcolor=blue
       \item Two fluids of different densities $\rho_2 > \rho_1$ horizontally separated in a vertical
         gravity field
       \item $\nu_1 = \nu_2$ $\Rightarrow$ test of variable viscosity implementation
-      \item Results to be validated against data of \citet{Birman2005}
       \end{itemize}
     \end{column}
     \begin{column}{0.5\textwidth}
       \begin{figure}[c]
         \centering
-        \begin{subfigure}[b]{\columnwidth}
-          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma0998-rho-000_colourplot}
-          \caption{$t=0$}
-        \end{subfigure}
-        \begin{subfigure}[b]{\columnwidth}
-          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma0998-rho-002_colourplot}
-          \caption{$t=2$}
-        \end{subfigure}
         \begin{subfigure}[b]{\columnwidth}
           \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma0998-rho-010_colourplot}
-          \caption{$t=10$}
-        \end{subfigure}
-        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.998$}\label{fig:lock-exch}
-      \end{figure}
-    \end{column}
-  \end{columns}
-\end{frame}
-\begin{frame}
-  \frametitle{Results}
-  \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\footnote{Anecdotally, this case highlights
-      the importance of the guess for $p^{\nu=0}$!}\subrule}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-      \item Two fluids of different densities $\rho_2 > \rho_1$ horizontally separated in a vertical
-        gravity field
-      \item $\nu_1 = \nu_2$ $\Rightarrow$ test of variable viscosity implementation
-      \item Results to be validated against data of \citet{Birman2005}
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \begin{figure}[c]
-        \centering
-        \begin{subfigure}[b]{\columnwidth}
-          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma092-rho-000_colourplot}
-          \caption{$t=0$}
-        \end{subfigure}
-        \begin{subfigure}[b]{\columnwidth}
-          \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma092-rho-002_colourplot}
-          \caption{$t=2$}
+          \caption{$\nicefrac{\rho_2}{\rho_1} = 0.998$}
         \end{subfigure}
         \begin{subfigure}[b]{\columnwidth}
           \includegraphics[width=\columnwidth]{./figures/constcoeff-gamma092-rho-010_colourplot}
-          \caption{$t=10$}
+          \caption{$\nicefrac{\rho_2}{\rho_1} = 0.92$}
         \end{subfigure}
-        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.92$}\label{fig:lock-exch}
+        \begin{subfigure}[b]{\columnwidth}
+          \includegraphics[width=\columnwidth]{./figures/varcoeff-gamma02-rho-010_colourplot}
+          \caption{$\nicefrac{\rho_2}{\rho_1} = 0.2$}
+        \end{subfigure}
       \end{figure}
     \end{column}
   \end{columns}
 \end{frame}
 \begin{frame}
   \frametitle{Results}
-  \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\footnote{Anecdotally, this case highlights
-      the importance of the guess for $p^{\nu=0}$!}\subrule}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-      \item Two fluids of different densities $\rho_2 > \rho_1$ horizontally separated in a vertical
-        gravity field
-      \item $\nu_1 = \nu_2$ $\Rightarrow$ test of variable viscosity implementation
-      \item Results to be validated against data of \citet{Birman2005}
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \begin{figure}[c]
-        \centering
-        \begin{subfigure}[b]{\columnwidth}
-          \includegraphics[width=\columnwidth]{./figures/varcoeff-gamma02-rho-000_colourplot}
-          \caption{$t=0$}
-        \end{subfigure}
-        \begin{subfigure}[b]{\columnwidth}
-          \includegraphics[width=\columnwidth]{./figures/varcoeff-gamma02-rho-002_colourplot}
-          \caption{$t=2$}
-        \end{subfigure}
-        \begin{subfigure}[b]{\columnwidth}
-          \includegraphics[width=\columnwidth]{./figures/varcoeff-gamma02-rho-010_colourplot}
-          \caption{$t=10$}
-        \end{subfigure}
-        \caption{Lock-exchange $\dfrac{\rho_2}{\rho_1} = 0.2$}\label{fig:lock-exch}
-      \end{figure}
-    \end{column}
-  \end{columns}
+  \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\subrule}
+\end{frame}
+\begin{frame}
+  \frametitle{Results}
+  \framesubtitle{3D Non-Boussinesq Lock-Exchange Problem\subrule}
+  \begin{itemize}
+  \item Similar to 2D case
+  \item Initial velocity field perturbed
+  \end{itemize}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{./figures/comparison-g0998-g07-g04}
+  \end{figure}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
