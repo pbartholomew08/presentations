@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Tue Aug 28 16:11:24 2018 (+0100)
+%% Last-Updated: Tue Aug 28 17:00:30 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 586
+%%     Update #: 610
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -197,7 +197,10 @@ urlcolor=blue
     \frac{\partial \density^{\left( 0 \right)}}{\partial t} + \vdiv{\density^{ \left( 0 \right)}
     \vvelocity^{\left( 0 \right)}} &= 0 \\
     % Lowest order momentum: grad(p^0) = 0
-    \vvect{0} &= \vgrad{\pressure^{\left( 0 \right)}} \\
+    \vvect{0} = \vgrad{\pressure^{\left( 0 \right)}} \Rightarrow \vdiv{\vvelocity^{\left( 0
+    \right)}} &= \frac{1}{\pressure^{\left( 0 \right)}} \left( \frac{\vdiv{k
+                \vgrad{\temperature^{\left( 0 \right)}}}}{\Reynolds \Prandtl} -
+                \dtrans{\pressure^{\left( 0 \right)}} \right) \\
     % Energy/temperature equation
     \density^{\left( 0 \right)} \frac{\partial \temperature^{\left( 0 \right)}}{\partial t} +
     \density^{\left( 0 \right)} \vvelocity^{\left( 0 \right)} \cdot \vgrad{\temperature^{\left( 0
@@ -216,30 +219,6 @@ urlcolor=blue
                                      \frac{\vdiv{\vviscstress^{\left( 0 \right)}}}{\Reynolds}
     \end{align*}
 \end{frame}
-\begin{frame}
-  \frametitle{Introduction}
-  \framesubtitle{The Low Mach Number Approximation (cont.)\subrule}
-
-  \begin{itemize}
-  \item Combining continuity and temperature equations yields velocity divergence constraint
-    \begin{equation*}
-      \vdiv{\vvelocity} = \frac{1}{\pressure^{\left( 0 \right)}} \left( \frac{\vdiv{k
-            \vgrad{\temperature}}}{\Reynolds \Prandtl} - \dtrans{\pressure^{\left( 0 \right)}}
-      \right)
-    \end{equation*}
-  \item Boundary condition follows
-    \begin{equation*}
-      \int_{\partial \Omega} \vvelocity \cdot \widehat{\vvect{n}} dS = \frac{1}{\pressure^{\left( 0
-          \right)}} \left( \frac{1}{\Reynolds \Prandtl} \int_{\partial \Omega} k
-        \vgrad{\temperature} \cdot \widehat{\vvect{n}} dS - \dtrans{\pressure^{\left( 0 \right)}}
-        V_{\Omega} \right)
-    \end{equation*}
-  \item Open domains
-    \begin{equation*}
-      \dtrans{\pressure^{\left( 0 \right)}} = 0 \Rightarrow \pressure^{\left( 0 \right)} = \pressure_a
-    \end{equation*}
-  \end{itemize}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Numerics
@@ -248,11 +227,7 @@ urlcolor=blue
   \framesubtitle{Overview\subrule}
 
   \begin{itemize}
-  \item Advance density in time\footnote{Alternative algorithm updates temperature}
-    \begin{equation*}
-      \density^{k+1} = \density^k + \Delta t \vdiv{{\left( \density \vvelocity \right)}^k}
-    \end{equation*}
-  \item Update temperature via EOS and compute $\vdiv{\vvelocity}^{k+1}$
+  \item Advance density/temperature in time and compute $\vdiv{\vvelocity}^{k+1}$
     \begin{equation*}
       \temperature^{k+1} = \frac{\pressure^{\left( 0 \right)}}{\density^{k+1}} \Rightarrow
       \vdiv{\vvelocity^{k+1}} = \frac{\vdiv{k \vgrad{ T^{k+1}}}}{p^{\left( 0 \right)} \Reynolds
@@ -347,6 +322,7 @@ urlcolor=blue
     \item[\textcolor{red}{\textbf{--}}] Extrapolation is potential source of error
     \item[\textcolor{red}{\textbf{--}}] Does not recover $\vdiv{\vvelocity}^{k+1} = 0$ in inviscid
       case\footnote{\citet{Nicoud2000}}
+    \item[\textcolor{red}{\textbf{--}}] Only applicable for density ratios $< \orderof{3}-\orderof{5}$
     \end{itemize}
   \item \textbf{Variable coefficient}
     \begin{itemize}
@@ -459,47 +435,41 @@ urlcolor=blue
 
 \begin{frame}
   \frametitle{Results}
-  \framesubtitle{2D Non-Isothermal Mixing Layer - Results (Error in $\vdiv{\vvelocity}^{k+1}$)\subrule}
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.95\textwidth]{figures/err_divu}
-    % \caption{Error in divergence of corrected velocity field.}
-  \end{figure}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Results}
   \framesubtitle{2D Non-Isothermal Mixing Layer - Results (Performance Comparison)\subrule}
 
-  % \begin{columns}
-  %   \begin{column}{0.5\textwidth}
-  \begin{table}[h]
-    \centering
-    \begin{tabular}[h]{r | l}
-      \textbf{Poisson Eq.} & \textbf{CPU / $\boldsymbol{\Delta t}$ [s]} \\
-      \midrule
-      CC & $4.48 \times 10^{-2}$ \\
-      VC $\density_0$ & $6.16 \times 10^{-1}$ \\
-      VC $\density_h$ & $3.53 \times 10^{-1}$ \\
-      \midrule
-                           & \textbf{Cost (normalised)} \\
-      \midrule
-      CC & $1$ \\
-      VC $\density_0$ & $13.75$ \\
-      VC $\density_h$ & $7.88$ \\
-      \midrule
-                           & \textbf{Time (its) in Poisson [\%]} \\
-      \midrule
-      CC & $23.4$ ($1$) \\
-      VC $\density_0$ & $94.2$ ($34.1$) \\
-      VC $\density_h$ & $89.9$ ($18.8$)
-    \end{tabular}
-  \end{table}
-  %   \end{column}
-  %   \begin{column}{0.5\textwidth}
-      
-  %   \end{column}
-  % \end{columns}
+  \begin{columns}
+    \begin{column}{0.35\textwidth}
+      \begin{table}[h]
+        \centering
+        \begin{tabular}[h]{r | l}
+          \textbf{Solver} & \textbf{CPU / $\boldsymbol{\Delta t}$ [s]} \\
+          \midrule
+          CC & $4.48 \times 10^{-2}$ \\
+          VC $\density_0$ & $6.16 \times 10^{-1}$ \\
+          VC $\density_h$ & $3.53 \times 10^{-1}$ \\
+          \midrule
+                               & \textbf{Cost (its)} \\
+          \midrule
+          CC & $1$ ($1$) \\
+          VC $\density_0$ & $13.75$ ($34.1$) \\
+          VC $\density_h$ & $7.88$ ($18.8$) \\
+          \midrule
+                               & \textbf{[\%] in Poisson} \\
+          \midrule
+          CC & $23.4$ \\
+          VC $\density_0$ & $94.2$ \\
+          VC $\density_h$ & $89.9$
+        \end{tabular}
+      \end{table}
+    \end{column}
+    \begin{column}{0.65\textwidth}
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\columnwidth]{figures/err_divu}
+        % \caption{Error in divergence of corrected velocity field.}
+      \end{figure}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 % \begin{frame}
@@ -624,7 +594,6 @@ urlcolor=blue
     \end{column}
     \begin{column}{0.5\textwidth}
       \begin{itemize}
-      \item Complete simulation of buoyant, turbulent jets
       \item Complete validation of non-Boussinesq lock-exchange in 2D
       \item Investigate 3D non-Boussinesq lock-exchange problem
       \end{itemize}
