@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Wed Aug 29 16:15:44 2018 (+0100)
+%% Last-Updated: Fri Aug 31 10:44:25 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 626
+%%     Update #: 634
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -512,13 +512,28 @@ urlcolor=blue
 \begin{frame}
   \frametitle{Results}
   \framesubtitle{2D Non-Boussinesq Lock-Exchange Problem\subrule}
+  \begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+      \includegraphics[width=\textwidth]{./figures/energy_budgets-g0998}
+      \caption{$\nicefrac{\rho_2}{\rho_1} = 0.998$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+      \includegraphics[width=\textwidth]{./figures/energy_budgets-g07}
+      \caption{$\nicefrac{\rho_2}{\rho_1} = 0.7$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+      \includegraphics[width=\textwidth]{./figures/energy_budgets-g04}
+      \caption{$\nicefrac{\rho_2}{\rho_1} = 0.4$}
+    \end{subfigure}
+  \end{figure}
 \end{frame}
 \begin{frame}
   \frametitle{Results}
   \framesubtitle{3D Non-Boussinesq Lock-Exchange Problem\subrule}
   \begin{itemize}
   \item Similar to 2D case
-  \item Initial velocity field perturbed
+  \item Initial velocity field perturbed to achieve $k^0 = 0.01 E^0_p$
   \end{itemize}
   \begin{figure}[h]
     \centering

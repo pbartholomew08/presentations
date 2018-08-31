@@ -4,3 +4,4 @@ auto
 *.log
 *.bbl
 *.synctex.gz
+*.rel
