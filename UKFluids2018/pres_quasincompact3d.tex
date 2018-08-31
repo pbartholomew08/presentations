@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Tue Aug 28 17:00:30 2018 (+0100)
+%% Last-Updated: Wed Aug 29 15:41:42 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 610
+%%     Update #: 613
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -19,8 +19,8 @@
 %% 
 %%% Commentary: 
 %% 
-%% Talk length: 30 mins (inc. questions)
-%% -> approx. 25-30 slides
+%% Talk length: 10 mins (+ 2 mins questions)
+%% -> approx. 10 slides
 %%
 %% Intro:                                   TODO
 %% - Outline of talk                        TODO                    1
@@ -227,9 +227,8 @@ urlcolor=blue
   \framesubtitle{Overview\subrule}
 
   \begin{itemize}
-  \item Advance density/temperature in time and compute $\vdiv{\vvelocity}^{k+1}$
+  \item Advance density/temperature in time and compute velocity divergence constraint
     \begin{equation*}
-      \temperature^{k+1} = \frac{\pressure^{\left( 0 \right)}}{\density^{k+1}} \Rightarrow
       \vdiv{\vvelocity^{k+1}} = \frac{\vdiv{k \vgrad{ T^{k+1}}}}{p^{\left( 0 \right)} \Reynolds
         \Prandtl}
     \end{equation*}
