@@ -7,9 +7,9 @@
 %% Created: Wed Jan 10 10:05:43 2018 (+0000)
 %% Version: 
 %% Package-Requires: ()
-%% Last-Updated: Fri Aug 31 12:03:38 2018 (+0100)
+%% Last-Updated: Mon Sep  3 21:27:46 2018 (+0100)
 %%           By: Paul Bartholomew
-%%     Update #: 640
+%%     Update #: 698
 %% URL: 
 %% Doc URL: 
 %% Keywords: 
@@ -250,86 +250,47 @@ urlcolor=blue
 
 \begin{frame}
   \frametitle{Numerical Method}
-  \framesubtitle{The Poisson Equation - Constant Coefficient\subrule}
+  \framesubtitle{The Poisson Equation\subrule}
 
-  \begin{itemize}
-  \item Like incompressible approach, take divergence of momentum directly
-    \begin{equation*}
-      {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}}^{k+1} = \frac{1}{\Delta t} \left(
-        \vdiv{{\left( \density \vvelocity \right)}^{\star}} - \vdiv{{\left( \density \vvelocity
-            \right)}^{k+1}}
-      \right)
-    \end{equation*}
-  \item[\textcolor{blue}{\textbf{+}}] Constant coefficient Poisson equation: direct solvers
-    available 
-  \item[\textcolor{red}{\textbf{--}}] Need an approximation for $\vdiv{{\left( \density \vvelocity
-        \right)}^{k+1}}$
-    \begin{equation*}
-      \vdiv{{\left( \density \vvelocity \right)}^{k+1}} = - \left. \frac{\partial \density}{\partial
-          t} \right|^{k+1} \approx -\frac{\density^{k+1} - \density^k}{\Delta t} + \orderof{\Delta
-        t}
-    \end{equation*}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Numerical Method}
-  \framesubtitle{The Poisson Equation - Variable Coefficient\subrule}
-
-  \begin{itemize}
-  \item Alternatively, $\vdiv{\vvelocity^{k+1}}$ is available as a
-    constraint\footnote{\textit{c.f.} incompressible flow: $\vdiv{\vvelocity} = 0$}
-    \begin{equation*}
-      \Rightarrow \vdiv{\frac{1}{\density} \vgrad{\widetilde{p^{\left( 1 \right)}}^{k+1}}} =
-      \frac{1}{\Delta t} \left( \vdiv{\vvelocity^{\star}} - \vdiv{\vvelocity^{k+1}} \right)
-    \end{equation*}
-  \item Cannot solve directly using spectral solver
-  \item Iterative solver
-  \end{itemize}
-  \begin{align*}
-    {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}}^{\poissiter+1} =& {\nabla}^2
-                                                                         \widetilde{\pressure^{\left(
-                                                                         1 \right)}}^{\poissiter}
-                                                                         + \widetilde{\density}
-                                                                         \left[ \frac{1}{\Delta t}
-                                                                         \left(
-                                                                         \vdiv{\vvelocity^{\star}}
-                                                                         -
-                                                                         \vdiv{\vvelocity^{k+1}}\right)
-                                                                         -
-                                                                         \vdiv{\frac{1}{\density}
-                                                                         \vgrad{\widetilde{\pressure^{\left(
-                                                                         1 \right)}}^{\poissiter}}}
-                                                                         \right] \\
-                                                                       & \left|\left| \Delta
-                                                                         \widetilde{\pressure^{\left(
-                                                                         1 \right)}} \right|\right|
-                                                                         \leq \texttt{tol}
-    \end{align*}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Numerical Method}
-  \framesubtitle{The Poisson Equation - Discussion\subrule}
-
-  \begin{itemize}
-    \setlength{\itemsep}{0.4cm}
-  \item \textbf{Constant coefficient}
-    \begin{itemize}
-      \setlength{\itemsep}{0.25cm}
-    \item[\textcolor{blue}{\textbf{+}}] Direct solver $\rightarrow$ fast solution
-    \item[\textcolor{red}{\textbf{--}}] Extrapolation is potential source of error
-    \item[\textcolor{red}{\textbf{--}}] Does not recover $\vdiv{\vvelocity}^{k+1} = 0$ in inviscid
-      case\footnote{\citet{Nicoud2000}}
-    \item[\textcolor{red}{\textbf{--}}] Only applicable for density ratios $< \orderof{3}-\orderof{5}$
-    \end{itemize}
-  \item \textbf{Variable coefficient}
-    \begin{itemize}
-      \setlength{\itemsep}{0.25cm}
-    \item[\textcolor{blue}{\textbf{+}}] Obeys $\vdiv{\vvelocity}^{k+1}$ constraint
-    \item[\textcolor{red}{\textbf{--}}] Iteration is potentially very expensive!
-    \end{itemize}
-  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item \textbf{Constant Coefficient}
+        \begin{equation*}
+          \begin{split}
+            {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}}^{k+1} =& \\
+            \frac{1}{\Delta t} \boldsymbol{\nabla} \cdot
+            \Big( {\left( \density \vvelocity \right)}^{\star} &- {\left( \density \vvelocity
+              \right)}^{k+1} \Big)
+          \end{split}
+        \end{equation*}
+      \item[\textcolor{blue}{\textbf{+}}] Can solve directly
+      \item[\textcolor{red}{\textbf{--}}] Need to approximate
+        \begin{equation*}
+          \begin{split}
+            \vdiv{{\left( \density \vvelocity \right)}^{k+1}} =& - \left. \frac{\partial
+                \density}{\partial t} \right|^{k+1} \\
+            \approx& -\frac{\density^{k+1} - \density^k}{\Delta t} + \orderof{\Delta t}
+          \end{split}
+        \end{equation*}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item \textbf{Variable Coefficient}
+        \begin{equation*}
+          \begin{split}
+            \vdiv{\frac{1}{\density}\vgrad{\widetilde{\pressure^{\left( 1 \right)}}^{k+1}}} =& \\
+            \frac{1}{\Delta t} \boldsymbol{\nabla} \cdot \Big( \vvelocity^{\star} &-
+            \vvelocity^{k+1} \Big)
+          \end{split}
+        \end{equation*}
+      \item[\textcolor{blue}{\textbf{+}}] $\vdiv{\vvelocity}^{k+1}$ known
+      \item[\textcolor{red}{\textbf{--}}] Requires iterative solution
+      \end{itemize}
+      \vspace{2.1cm}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -580,6 +541,43 @@ urlcolor=blue
 \begin{frame}<beamer:0> % Suppress references page
   \bibliographystyle{natbib}
   \bibliography{/home/paul/Documents/Postdoc.bib}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numerical Method}
+  \framesubtitle{The Poisson Equation - Variable Coefficient\subrule}
+
+  \begin{itemize}
+  \item Alternatively, $\vdiv{\vvelocity^{k+1}}$ is available as a
+    constraint\footnote{\textit{c.f.} incompressible flow: $\vdiv{\vvelocity} = 0$}
+    \begin{equation*}
+      \Rightarrow \vdiv{\frac{1}{\density} \vgrad{\widetilde{p^{\left( 1 \right)}}^{k+1}}} =
+      \frac{1}{\Delta t} \left( \vdiv{\vvelocity^{\star}} - \vdiv{\vvelocity^{k+1}} \right)
+    \end{equation*}
+  \item Cannot solve directly using spectral solver
+  \item Iterative solver
+  \end{itemize}
+  \begin{align*}
+    {\nabla}^2 \widetilde{\pressure^{\left( 1 \right)}}^{\poissiter+1} =& {\nabla}^2
+                                                                         \widetilde{\pressure^{\left(
+                                                                         1 \right)}}^{\poissiter}
+                                                                         + \widetilde{\density}
+                                                                         \left[ \frac{1}{\Delta t}
+                                                                         \left(
+                                                                         \vdiv{\vvelocity^{\star}}
+                                                                         -
+                                                                         \vdiv{\vvelocity^{k+1}}\right)
+                                                                         -
+                                                                         \vdiv{\frac{1}{\density}
+                                                                         \vgrad{\widetilde{\pressure^{\left(
+                                                                         1 \right)}}^{\poissiter}}}
+                                                                         \right] \\
+                                                                        &
+                                                                          \left|\left| \Delta
+                                                                         \widetilde{\pressure^{\left(
+                                                                         1 \right)}} \right|\right|
+                                                                         \leq \texttt{tol}
+  \end{align*}
 \end{frame}
 
 \begin{frame}
