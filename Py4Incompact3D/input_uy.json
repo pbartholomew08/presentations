@@ -1,0 +1,9 @@
+"uy": {
+	"type": "data",
+	"name": "uy",
+	"description": "Y velocity",
+	"properties": {
+		"filename": "../DATA/uy",
+		"direction": [1]
+	}
+}

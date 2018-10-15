@@ -1,7 +1,7 @@
 "mesh": {
   "type": "mesh",
-  "name": "mesh_example",
-  "description": "Mesh example",
+  "name": "mesh",
+  "description": "Mesh",
   "properties": {
     "Nx": 1025,
     "Ny": 129,

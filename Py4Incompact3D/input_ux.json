@@ -1,7 +1,7 @@
 "ux": {
 	"type": "data",
 	"name": "ux",
-	"description": "Instantaneous x velocity",
+	"description": "X velocity",
 	"properties": {
 		"filename": "../DATA/ux",
 		"direction": [0]
