@@ -1,0 +1,16 @@
+"mesh": {
+  "type": "mesh",
+  "name": "mesh_example",
+  "description": "Mesh example",
+  "properties": {
+    "Nx": 1025,
+    "Ny": 129,
+    "Nz": 128,
+    "Lx": 18.0,
+    "Ly": 2.0,
+    "Lz": 2.0,
+    "BCx": 1,
+    "BCy": 2,
+    "BCz": 0
+  }
+}
