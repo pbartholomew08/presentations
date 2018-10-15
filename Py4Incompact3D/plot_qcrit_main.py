@@ -1,6 +1,5 @@
 # Load data
-input_file = "input.json"
-postprocess = Postprocess(input_file)
+postprocess = Postprocess("input.json")
 
 for t in range(T):
 	postprocess.load(time=t)
@@ -11,12 +10,6 @@ for t in range(T):
 	calc_qcrit(postprocess)
 	
 	# Write to data file
-	vel_list = ["ux", "uy", "uz"]
-	directions = ["x", "y", "z"]
-	for i in range(3):
-		for j in range(3):
-			name = "vort" + directions[i] + directions[j]
-			postprocess.write(vars=[name])
 	postprocess.write(vars=["Q"])
 
 	# Cleanup (save memory)
