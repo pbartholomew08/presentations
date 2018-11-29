@@ -1,0 +1,42 @@
+#+TITLE: QuasIncompact3D 3D non-isothermal mixing layer
+#+AUTHOR: Paul Bartholomew
+
+#+OPTIONS: toc:nil
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+BEAMER_FRAME_LEVEL: 1
+
+* QuasIncompact3D overview
+
+- Based on Incompact3D
+  - High-order compact finite-difference schemes
+  - Highly scalable
+- Variable-density using Low Mach Number approximation
+  - Can solve pressure-Poisson approximately (fast)
+  - Can solve pressure-Poisson exactly (slow)
+  - Pseudo multiple fluids (free-surface implementation is current WIP)
+
+* 2D Validation: (Golanski et al. 2005)
+
+#+CAPTION: Comparison of density contours at @@latex:$t=24,82,182$@@ from top to bottom. Data obtained with QuasIncompact3D constant-coefficient Poisson solver, variable-coefficient Poisson solver (@@latex:$\widetilde{\rho} = \rho_0, \rho^h$@@) and reference data (Golanski et al. 2005).
+#+ATTR_LATEX: :width 0.75\linewidth :center
+[[file:./figures/golanski2d-rho.png]]
+
+* 2D Validation: (Golanski et al. 2005)
+
+#+CAPTION: Comparison of errors in divergence constraint using QuasIncompact3D
+#+ATTR_LATEX: :width 0.75\linewidth :center
+[[file:./figures/err_divu.eps]]
+
+* 3D Mixing layer: setup
+
+#+CAPTION: Initial velocity and density fields
+#+ATTR_LATEX: :width 0.9\linewidth :center
+[[file:./figures/r1000-t0.png]]
+
+* 3D Mixing layer evolution
+
+#+CAPTION: @@latex:$\omega=0.3$@@ isosurface at @@latex:$t=86,129,193$@@, @@latex:$T_1 / T_2 = 2$@@, mesh: @@latex:$64\times257\times64$@@
+#+ATTR_LATEX: :width 0.9\linewidth :center
+[[file:./figures/r2-t86-129-193-w03.png]]
