@@ -1,9 +1,0 @@
-#+TITLE: FOO
-#+AUTHOR: Paul Bartholomew
-
-#+STARTUP: beamer
-#+LATEX_CLASS: beamer
-
-* Xcompact3D
-
-
