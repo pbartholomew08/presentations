@@ -1,4 +1,4 @@
-% Created 2018-11-29 Thu 18:38
+% Created 2018-11-30 Fri 10:08
 \documentclass[presentation]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -16,7 +16,7 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \tolerance=1000
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{listings}
 \usetheme{default}
 \author{Paul Bartholomew}
@@ -25,7 +25,7 @@
 \hypersetup{
   pdfkeywords={},
   pdfsubject={},
-  pdfcreator={Emacs 24.5.1 (Org mode 8.2.10)}}
+  pdfcreator={Emacs 25.2.2 (Org mode 8.2.10)}}
 \begin{document}
 
 \maketitle
@@ -44,6 +44,17 @@
 \item Pseudo multiple fluids (free-surface implementation is current WIP)
 \end{itemize}
 \end{itemize}
+\begin{align*}
+  \frac{D\rho}{Dt} &= -\rho \boldsymbol{\nabla} \cdot \boldsymbol{u} \\
+  p^{\left( 0 \right)} = \rho T,&\ \boldsymbol{\nabla} p^{\left( 0 \right)} = \boldsymbol{0},\ 
+                                                             \boldsymbol{\nabla} \cdot
+                                                             \boldsymbol{u} = \frac{1}{p^{\left( 0
+                                                             \right)} Pr Re} {\boldsymbol{\nabla}}^2
+                                                             T \\
+  \rho \frac{DT}{Dt} &= \frac{1}{Pr Re} {\boldsymbol{\nabla}}^2 T \\
+  \rho \frac{D\boldsymbol{u}}{Dt} &= -\boldsymbol{\nabla} p^{\left( 1 \right)} + \frac{1}{Re}
+                                    \boldsymbol{\nabla} \cdot \boldsymbol{\tau} \\
+\end{align*}
 \end{frame}
 
 \begin{frame}[label=sec-2]{2D Validation: (Golanski et al. 2005)}
@@ -77,5 +88,5 @@
 \caption{$\omega=0.3$ isosurface at $t=86,129,193$, $T_1 / T_2 = 2$, mesh: $64\times257\times64$}
 \end{figure}
 \end{frame}
-% Emacs 24.5.1 (Org mode 8.2.10)
+% Emacs 25.2.2 (Org mode 8.2.10)
 \end{document}

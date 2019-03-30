@@ -16,6 +16,19 @@
   - Can solve pressure-Poisson approximately (fast)
   - Can solve pressure-Poisson exactly (slow)
   - Pseudo multiple fluids (free-surface implementation is current WIP)
+#+BEGIN_LaTeX
+  \begin{align*}
+    \frac{D\rho}{Dt} &= -\rho \boldsymbol{\nabla} \cdot \boldsymbol{u} \\
+    p^{\left( 0 \right)} = \rho T,&\ \boldsymbol{\nabla} p^{\left( 0 \right)} = \boldsymbol{0},\ 
+                                                               \boldsymbol{\nabla} \cdot
+                                                               \boldsymbol{u} = \frac{1}{p^{\left( 0
+                                                               \right)} Pr Re} {\boldsymbol{\nabla}}^2
+                                                               T \\
+    \rho \frac{DT}{Dt} &= \frac{1}{Pr Re} {\boldsymbol{\nabla}}^2 T \\
+    \rho \frac{D\boldsymbol{u}}{Dt} &= -\boldsymbol{\nabla} p^{\left( 1 \right)} + \frac{1}{Re}
+                                      \boldsymbol{\nabla} \cdot \boldsymbol{\tau} \\
+  \end{align*}
+#+END_LaTeX
 
 * 2D Validation: (Golanski et al. 2005)
 
