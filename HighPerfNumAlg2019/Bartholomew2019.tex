@@ -4,7 +4,7 @@
 %%  meeting.
 
 \documentclass[
-10pt,
+9pt,
 linkcolor=red,
 urlcolor=blue
 ]{beamer}
@@ -15,20 +15,23 @@ urlcolor=blue
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[text line]{
-  \parbox{\linewidth}{\vspace*{-8pt}High-Performance Numerical Algorithms Meeting
+  \parbox{\linewidth}{\vspace*{-8pt}Numerical algorithms for high-performance computational science\hfill
     2019\hfill Paul Bartholomew, Georgios Deskos, Sylvain Laizet}
 }
+\setbeamertemplate{itemize items}[circle]
 
 \begin{document}
 
 \begin{frame}
-  \frametitle{Xcompact3d\subrule}
+  \frametitle{Xcompact3d: Modernising and expanding the capabilities of the high-order flow solver
+    Incompact3d\subrule}
+  \vspace{-20pt}
 
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{itemize}
-      \item Explicit Navier-Stokes solver aimed at LES and DNS simulations of turbulent flows
-      \item Scalability achieved through
+      \item Navier-Stokes solver aimed at LES and DNS simulations of turbulent flows
+      \item Scalability up to $\mathcal{O} \left( 10^5 \right)$ CPUs achieved through
         \begin{itemize}
         \item 2D domain decomposition
         \item Compact finite difference schemes
@@ -46,8 +49,15 @@ urlcolor=blue
     \begin{column}{0.5\textwidth}
       \begin{figure}[h]
         \centering
+        \includegraphics[width=0.9\textwidth]{./pencil_decomp}
+        \caption{Domain decomposition}
+      \end{figure}
+      \vspace{-20pt}
+      \begin{figure}[h]
+        \centering
         \def\svgwidth{\textwidth}
         \input{./3D_view}
+        \caption{Gravity currents at different density ratios}
       \end{figure}
     \end{column}
   \end{columns}
