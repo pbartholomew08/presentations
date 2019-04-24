@@ -192,6 +192,34 @@ Plot measures of mixing VASILIS
 
 ** Lock-Exchange Flow
 
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Gravity currents driven by density differences found widely in nature
+- Examples include:
+  - Atmospheric flows
+  - River deltas
+  - Avalanches
+  - Pyroclastic flows
+- Also studied numerically and in laboratory
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+Pictures of gravity currents
+
+** Lock-Exchange Flow
+
+Picture/video of lock-exchange simulations PAUL/BRAZIL
+
+** Lock-Exchange Flow
+
+Some results, /e.g./ 2D/3D comparison PAUL
+
 * Future for Xcompact3D
 
 ** GPU
