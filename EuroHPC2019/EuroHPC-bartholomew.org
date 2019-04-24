@@ -23,8 +23,8 @@
 # Imperial College Logo, not to be changed!
 #+LATEX_HEADER: \institute{\includegraphics[height=0.7cm]{Imperial_1_Pantone_solid.eps}}
 
-# # To repeat TOC at each section
-# #+LATEX_HEADER: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{\insertsection}\tableofcontents[currentsection]\end{frame}}
+# To repeat TOC at each section
+#+LATEX_HEADER: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{\insertsection}\tableofcontents[currentsection]\end{frame}}
 
 * Introduction
 
@@ -133,7 +133,60 @@ Solution of Poisson equation is expensive!
 
 ** Drag Reduction by Boundary-Layer Blowing
 
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Air travel is a major contributor to CO_2 emissions
+- A reduction of drag by X% results in a Y% reduction in fuel-burn
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+**** Drag reduction
+
+- Manipulate boundary layer to reduce drag
+- Use Bayesian optimisation to optimise blowing parameters
+- Must account for blowing power consumption!
+
+** Drag Reduction by Boundary-Layer Blowing
+
+- Diagram of principle OMAR
+- Some DNS pictures OMAR
+
+** Drag Reduction by Boundary-Layer Blowing
+
+- Some results showing optimisation OMAR
+
 ** Plasma Control of Jets
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Jets widely used to mix fluids
+  - Combustors
+  - Chemical processes
+- Can we improve/control mixing by perturbing the jet?
+
+*** Right 
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+Diagram of plasma actuator VASILIS
+
+** Plasma Control of Jets
+
+Video(s) of jets VASILIS
+
+** Plasma Control of Jets
+
+Plot measures of mixing VASILIS
 
 ** Wind Farm Simulation
 
