@@ -1,12 +1,148 @@
 #+TITLE: EuroHPC
-#+AUTHOR: Paul Bartholomew
+#+AUTHOR: Paul Bartholomew, Georgios Deskos, Sylvain Laizet
+#+DATE: Tuesday 14^{th} April, 2019
 
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:t
+#+OPTIONS: H:2
 
 #+STARTUP: beamer
 #+LATEX_CLASS: beamer
-#+BEAMER_FRAME_LEVEL: 1
+
+#+LATEX_HEADER: \usecolortheme{Imperial}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \usepackage{amsfonts}
+#+LATEX_HEADER: \usepackage{epstopdf}
+
+# Use UK date format
+#+LATEX_HEADER: \usepackage{datetime}
+#+LATEX_HEADER: \let\dateUKenglish\relax
+#+LATEX_HEADER: \newdateformat{dateUKenglish}{\THEDAY~\monthname[\THEMONTH] \THEYEAR}
+
+# Imperial College Logo, not to be changed!
+#+LATEX_HEADER: \institute{\includegraphics[height=0.7cm]{Imperial_1_Pantone_solid.eps}}
+
+# # To repeat TOC at each section
+# #+LATEX_HEADER: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{\insertsection}\tableofcontents[currentsection]\end{frame}}
 
 * Introduction
 
+** What is Xcompact3D
+
+- Explicit, high-order Navier-Stokes solver for numerical simulation of turbulent flows
+- Designed to run on large parallel computers
+- Targeted at incompressible flows
+- Extensions include
+  - =IBM= for complex domains
+  - =LMN= solver for variable-density flows
+  - Wind farm simulator
+
+** The Navier-Stokes Equations
+
+- A system of coupled, non-linear equations
+\begin{align*}
+  \frac{\partial \rho \boldsymbol{u}}{\partial t} + \boldsymbol{\nabla} \cdot \rho \boldsymbol{u}
+  \boldsymbol{u} &= -\boldsymbol{\nabla} p + \boldsymbol{\nabla} \cdot \boldsymbol{\tau} + \rho
+                     \boldsymbol{g} \\
+  \frac{\partial \rho}{\partial t} + \boldsymbol{\nabla} \cdot \rho \boldsymbol{u} &= 0
+\end{align*}
+
+- Non-linearity gives rise to chaotic solutions
+
+*** Incompressibility
+
+Xcompact3D is originally designed with incompressible flows in mind
+\begin{equation*}
+  \boldsymbol{\nabla} \cdot \boldsymbol{u} = 0
+\end{equation*}
+this results in a saddle-point system of equations.
+
+** Discretisation
+
+- The flow is sampled at a set of nodes
+- These nodes form a mesh
+- Derivatives are approximated based on change between nodes, /e.g./
+\begin{equation*}
+  \left. \frac{\partial \phi}{\partial x} \right|_i \approx \frac{\phi_{i+1} - \phi_{i - 1}}{2
+    \Delta x} + \mathcal{O} \left( {\Delta x}^2 \right)
+\end{equation*}
+
+** Domain Decomposition
+
+#+ATTR_LATEX: :options :width 0.7\columnwidth
+#+CAPTION: Domain decomposition provided by the =decomp2d= library, colours indicate =MPI= ranks
+[[./decomp2d.pdf]]
+
+** Compact Finite-Difference Schemes
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- High-order /spectral-like/ accuracy
+- Compact stencil
+- Results in tri-diagonal system to solve in each direction
+  - Embarassingly parallel (each pencil is independent)
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+**** First derivative
+
+\begin{equation*}
+  \begin{split}
+    \alpha \left. \frac{\partial \phi}{\partial x} \right|_{i - 1} &+ \left. \frac{\partial
+        \phi}{\partial x} \right|_i + \alpha \left. \frac{\partial \phi}{\partial x} \right|_{i + 1}
+    \\
+    =&\ a \frac{\phi_{i + 1} - \phi_{i - 1}}{2 \Delta x} \\
+    &+ b \frac{\phi_{i + 2} - \phi_{i - 2}}{4 \Delta x} \\
+    &+ c \frac{\phi_{i + 3} - \phi_{i - 3}}{9 \Delta x} \\
+  \end{split}
+\end{equation*}
+
+** Fast Poisson Solver
+
+*** A Poisson equation for pressure
+\begin{align*}
+  {\boldsymbol{u}}^{\star} &= {\boldsymbol{u}}^0 + {\Delta t} \boldsymbol{\nabla} \cdot \left(
+                             \boldsymbol{\tau} - \boldsymbol{u} \boldsymbol{u} \right) \\
+  \boldsymbol{\nabla} \cdot \boldsymbol{u} = 0 &\Rightarrow {\boldsymbol{\nabla}}^2 p =
+                                                 \frac{1}{\Delta t} \boldsymbol{\nabla} \cdot
+                                                 {\boldsymbol{u}}^{\star}
+\end{align*}
+Solution of Poisson equation is expensive!
+
+*** Spectral fast Poisson solver
+
+- /Fast/
+- Highly parallelisable
+- Spectral accuracy
+
+** Scalability
+
+* Applications of Xcompact3D
+
+** Taylor-Green Vortex
+
+- A simplified model of free turbulent flow
+  - A canonical test-case for =CFD= codes
+
+** Drag Reduction by Boundary-Layer Blowing
+
+** Plasma Control of Jets
+
+** Wind Farm Simulation
+
+** Lock-Exchange Flow
+
+* Future for Xcompact3D
+
+** GPU
+
 * Conclusion
+
+** Conclusion and Future Work
