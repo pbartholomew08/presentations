@@ -14,6 +14,7 @@
 #+LATEX_HEADER: \usepackage{subcaption}
 #+LATEX_HEADER: \usepackage{amsfonts}
 #+LATEX_HEADER: \usepackage{epstopdf}
+#+LATEX_HEADER: \usepackage{multimedia}
 
 # Use UK date format
 #+LATEX_HEADER: \usepackage{datetime}
@@ -240,8 +241,23 @@ Plot measures of mixing VASILIS
 
 ** Lock-Exchange Flow
 
-Picture/video of lock-exchange simulations PAUL/BRAZIL
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.49
+:END:
 
+#+begin_export latex
+\movie[]{\includegraphics[width=\textwidth]{./figures/lockexch-gamma07-t10}}{./figures/lockexch-gamma0998-video.wmv}
+#+end_export
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.49
+:END:
+
+#+begin_export latex
+\movie[]{\includegraphics[width=\textwidth]{./figures/lockexch-gamma07-t10}}{./figures/lockexch-gamma07-video.wmv}
+#+end_export
 
 ** Lock-Exchange Flow
 
