@@ -177,12 +177,36 @@ Solution of Poisson equation is expensive!
 
 ** Drag Reduction by Boundary-Layer Blowing
 
-- Diagram of principle OMAR
-- Some DNS pictures OMAR
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+Parameters to optimise include:
+- Blown area
+- (Spatial) frequency of blowing
+- Strength of blowing
+
+#+CAPTION: Schematic of blowing optimisation parameters [Mahfoze, O., Laizet, S. (/submitted Phy. Rev. Fluids/)]
+#+ATTR_LATEX: :width \textwidth
+[[./figures/bl_blow.png]]
+
+*** Right 
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+ATTR_LATEX: :width \textwidth
+[[./figures/bl.png]]
+
+#+ATTR_LATEX: :width \textwidth
+[[./figures/tbl_omar_vort3.png]]
 
 ** Drag Reduction by Boundary-Layer Blowing
 
-- Some results showing optimisation OMAR
+# #+CAPTION: Skin friction after optimisation
+#+ATTR_LATEX: :width 0.75\textwidth
+[[./figures/All_Cf_Re_Newcastle-crop.pdf]]
 
 ** Plasma Control of Jets
 
