@@ -1,4 +1,4 @@
-#+TITLE: EuroHPC
+#+TITLE: Xcompact3d: a powerful framework to study turbulent flows with turbulence-resolving simulations
 #+AUTHOR: Paul Bartholomew, Georgios Deskos, Sylvain Laizet
 #+DATE: Tuesday 14^{th} April, 2019
 
@@ -29,9 +29,19 @@
 
 * Introduction
 
+** Why Study Turbulent Flows?
+
+#+ATTRX_LATEX: :width 0.65\textwidth
+[[./figures/turbulence-everywhere.png]]
+
+** Studying Turbulent Flows
+
+#+ATTRX_LATEX: :width 0.65\textwidth
+[[./figures/exp-vs-cfd.png]]
+
 ** What is Xcompact3D
 
-- Explicit, high-order Navier-Stokes solver for numerical simulation of turbulent flows
+- High-order Navier-Stokes solver for numerical simulation of turbulent flows
 - Designed to run on large parallel computers
 - Targeted at incompressible flows
 - Extensions include
@@ -49,7 +59,7 @@
   \frac{\partial \rho}{\partial t} + \boldsymbol{\nabla} \cdot \rho \boldsymbol{u} &= 0
 \end{align*}
 
-- Non-linearity gives rise to chaotic solutions
+- Non-linearity + non-locality + non-stationarity \rightarrow unpredictable solution
 
 *** Incompressibility
 
@@ -61,6 +71,11 @@ this results in a saddle-point system of equations.
 
 ** Discretisation
 
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
 - The flow is sampled at a set of nodes
 - These nodes form a mesh
 - Derivatives are approximated based on change between nodes, /e.g./
@@ -69,11 +84,13 @@ this results in a saddle-point system of equations.
     \Delta x} + \mathcal{O} \left( {\Delta x}^2 \right)
 \end{equation*}
 
-** Domain Decomposition
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
 
-#+ATTR_LATEX: :options :width 0.7\columnwidth
-#+CAPTION: Domain decomposition provided by the =decomp2d= library, colours indicate =MPI= ranks
-[[./decomp2d.pdf]]
+#+ATTR_LATEX: :width \textwidth
+[[./figures/fd-grid.png]]
 
 ** Compact Finite-Difference Schemes
 
@@ -105,6 +122,12 @@ this results in a saddle-point system of equations.
   \end{split}
 \end{equation*}
 
+** Domain Decomposition
+
+#+ATTR_LATEX: :options :width 0.7\columnwidth
+#+CAPTION: Domain decomposition provided by the =decomp2d= library, colours indicate =MPI= ranks
+[[./decomp2d.pdf]]
+
 ** Fast Poisson Solver
 
 *** A Poisson equation for pressure
@@ -124,6 +147,9 @@ Solution of Poisson equation is expensive!
 - Spectral accuracy
 
 ** Scalability
+
+#+ATTR_LATEX: :width 0.75\textwidth
+[[./figures/strong-scaling.eps]]
 
 * Applications of Xcompact3D
 
@@ -238,6 +264,27 @@ Video(s) of jets VASILIS
 Plot measures of mixing VASILIS
 
 ** Wind Farm Simulation
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Many complex, interacting flow features
+- Need highly detailed, /efficient/ simulations to perform design studies
+
+*** Right 
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+[[./figures/wt-interacting.png]]
+
+** Wind Farm Simulation
+
+#+begin_export latex
+\movie[]{\includegraphics[width=\textwidth]{./figures/WT_VR3}}{./figures/BT3.mp4}
+#+end_export
 
 ** Lock-Exchange Flow
 
