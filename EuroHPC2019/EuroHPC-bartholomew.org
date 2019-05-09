@@ -122,12 +122,6 @@ this results in a saddle-point system of equations.
   \end{split}
 \end{equation*}
 
-** Domain Decomposition
-
-#+ATTR_LATEX: :options :width 0.7\columnwidth
-#+CAPTION: Domain decomposition provided by the =decomp2d= library, colours indicate =MPI= ranks
-[[./decomp2d.pdf]]
-
 ** Fast Poisson Solver
 
 *** A Poisson equation for pressure
@@ -145,6 +139,12 @@ Solution of Poisson equation is expensive!
 - /Fast/
 - Highly parallelisable
 - Spectral accuracy
+
+** Domain Decomposition
+
+#+ATTR_LATEX: :options :width 0.7\columnwidth
+#+CAPTION: Domain decomposition provided by the =decomp2d= library, colours indicate =MPI= ranks
+[[./decomp2d.pdf]]
 
 ** Scalability
 
@@ -345,10 +345,12 @@ Plot measures of mixing VASILIS
 \end{figure}
 #+end_export
 
-* Future for Xcompact3D
-
-** GPU
-
 * Conclusion
 
 ** Conclusion and Future Work
+
+- =Xcompact3D= enables highly resolved, high fidelity simulations of turbulent flows
+  - Providing a tool for researchers to study fundamental turbulent flows
+  - Also applicable to more general flows
+- Current work to produce =GPU= port/code generator ongoing
+- =Xcompact3D= is open source: https://github.com/xcompact3d/Incompact3d
