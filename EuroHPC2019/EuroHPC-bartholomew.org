@@ -257,11 +257,16 @@ Parameters to optimise include:
 
 ** Plasma Control of Jets
 
-Video(s) of jets VASILIS
+#+begin_export latex
+\centering
+\movie[]{\includegraphics[height=0.7\textheight]{./figures/phim_annot5_sc}}{./figures/allvideos.avi}
+#+end_export
 
 ** Plasma Control of Jets
 
-Plot measures of mixing VASILIS
+#+CAPTION: Comparison of scalar mixing in jet with different forcing applied.
+#+ATTR_LATEX: :height 0.7\textheight
+[[./figures/phim_annot5_sc.png]]
 
 ** Wind Farm Simulation
 
@@ -283,7 +288,7 @@ Plot measures of mixing VASILIS
 ** Wind Farm Simulation
 
 #+begin_export latex
-\movie[]{\includegraphics[width=\textwidth]{./figures/WT_VR3}}{./figures/BT3.mp4}
+\movie[]{\includegraphics[width=\textwidth]{./figures/WT_VR3}}{./figures/APS_video_v1.mp4}
 #+end_export
 
 ** Lock-Exchange Flow
@@ -354,3 +359,23 @@ Plot measures of mixing VASILIS
   - Also applicable to more general flows
 - Current work to produce =GPU= port/code generator ongoing
 - =Xcompact3D= is open source: https://github.com/xcompact3d/Incompact3d
+
+** Acknowledgements
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+This work was funded, and resources provided by:
+- =PRACE= grant numbers =2016 163847= & =2018 184381= (=MARCONI= & =HAZEL HEN=)
+- =EPCC= grant numbers =eCSE10-02= & =eCSE13-03= (=ARCHER=)
+- Imperial College London Research Computing Service
+
+*** Right 
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+ATTR_LATEX: :width \textwidth
+[[./figures/acknowledgement.png]]
