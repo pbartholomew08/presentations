@@ -1,0 +1,70 @@
+#+TITLE: Developing Fortran using Python and Literate Programming
+#+AUTHOR: Paul Bartholomew, Sylvain Laizet
+#+DATE: 2019
+
+#+OPTIONS: toc:t
+#+OPTIONS: H:2
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+
+#+LATEX_HEADER: \usecolortheme{Imperial}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \usepackage{amsfonts}
+#+LATEX_HEADER: \usepackage{epstopdf}
+#+LATEX_HEADER: \usepackage{multimedia}
+
+# Use UK date format
+#+LATEX_HEADER: \usepackage{datetime}
+#+LATEX_HEADER: \let\dateUKenglish\relax
+#+LATEX_HEADER: \newdateformat{dateUKenglish}{\THEDAY~\monthname[\THEMONTH] \THEYEAR}
+
+# Imperial College Logo, not to be changed!
+#+LATEX_HEADER: \institute{\includegraphics[height=0.7cm]{Imperial_1_Pantone_solid.eps}}
+
+# # To repeat TOC at each section
+# #+LATEX_HEADER: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{\insertsection}\tableofcontents[currentsection]\end{frame}}
+
+* Introduction
+
+** My programming career
+
+- Seems to have gone backwards:
+  - ``Progress'': =FORTRAN= -> =C= -> =Python=
+  - Experience: =Python= -> =C= -> =FORTRAN=
+
+** Literate programming: an old idea
+
+- Introduced by Donald Knuth in 1984
+#+begin_quote
+I believe that the time is ripe for significantly better documentation of programs, and that we can
+best achieve this by considering programs to be works of literature.
+Hence, my title: "Literate Programming."
+#+end_quote
+- Doesn't seem to have caught on
+  - Could be well suited for scientific computing
+#+begin_quote
+Instead of imagining that our main task is to instruct a computer what to do, let us concentrate on
+explaining to human beings what we want a computer to do.
+#+end_quote
+
+** The problem
+
+- =Incompact3d= is a CFD code for simulating turbulent flows
+- Want to develop a free-surface solver
+- The schemes implemented in =Incompact3d= are ill-suited to these problems
+- =WENO= schemes provide high-order accuracy without being susceptible to oscillations
+  - Could simply code this in Fortran
+  - Would like to leave behind something that is understandable
+  - Testing code /inside/ a complex program is difficult
+
+* =WENO= schemes
+
+** =WENO= schemes
+
+* Testing
+
+** Testing
+
