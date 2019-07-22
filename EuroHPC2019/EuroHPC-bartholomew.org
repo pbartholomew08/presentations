@@ -232,7 +232,7 @@ Parameters to optimise include:
 
 # #+CAPTION: Skin friction after optimisation
 #+ATTR_LATEX: :width 0.75\textwidth
-[[./All_Cf_Re_Newcastle-crop.pdf]]
+[[./All_Cf_vs_Re_Kornolove.pdf]]
 
 ** Plasma Control of Jets
 
@@ -288,7 +288,7 @@ Parameters to optimise include:
 ** Wind Farm Simulation
 
 #+begin_export latex
-\movie[]{\includegraphics[width=\textwidth]{./WT_VR3}}{./APS_video_v1.mp4}
+\movie[]{\includegraphics[width=\textwidth]{./WT_VR3}}{./APS_video_v1.avi}
 #+end_export
 
 ** Lock-Exchange Flow
@@ -323,7 +323,7 @@ Parameters to optimise include:
 :END:
 
 #+begin_export latex
-\movie[]{\includegraphics[width=\textwidth]{./lockexch-gamma07-t10}}{./lockexch-gamma0998-video.wmv}
+\movie[]{\includegraphics[width=\textwidth]{./lockexch-gamma07-t10}}{./lockexch-gamma0998-video.avi}
 #+end_export
 
 *** Right
@@ -332,7 +332,7 @@ Parameters to optimise include:
 :END:
 
 #+begin_export latex
-\movie[]{\includegraphics[width=\textwidth]{./lockexch-gamma07-t10}}{./lockexch-gamma07-video.wmv}
+\movie[]{\includegraphics[width=\textwidth]{./lockexch-gamma07-t10}}{./lockexch-gamma07-video.avi}
 #+end_export
 
 ** Lock-Exchange Flow
