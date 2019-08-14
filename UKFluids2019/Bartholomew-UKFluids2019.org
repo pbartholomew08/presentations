@@ -77,6 +77,7 @@
 :BEAMER_COL: 0.5
 :END:
 
+#+CAPTION: Hot/cold mixing layer
 #+ATTR_LATEX: :width 0.75\columnwidth
 [[./figures/mixlayer.png]]
 
