@@ -1,0 +1,131 @@
+#+TITLE: Scale-Resolving Simulations of Three-Dimensional Gravity Currents Beyond the Boussinesq Limit
+#+AUTHOR: Paul Bartholomew, Sylvain Laizet
+# #+DATE: Wednesday 15^{th} May, 2019
+
+#+OPTIONS: toc:t
+#+OPTIONS: H:2
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+
+#+LATEX_HEADER: \usecolortheme{Imperial}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \usepackage{amsfonts}
+#+LATEX_HEADER: \usepackage{epstopdf}
+#+LATEX_HEADER: \usepackage{multimedia}
+
+# Use UK date format
+#+LATEX_HEADER: \usepackage{datetime}
+#+LATEX_HEADER: \let\dateUKenglish\relax
+#+LATEX_HEADER: \newdateformat{dateUKenglish}{\THEDAY~\monthname[\THEMONTH] \THEYEAR}
+
+# Imperial College Logo, not to be changed!
+#+LATEX_HEADER: \institute{\includegraphics[height=0.7cm]{Imperial_1_Pantone_solid.eps}}
+
+# # To repeat TOC at each section
+# #+LATEX_HEADER: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{\insertsection}\tableofcontents[currentsection]\end{frame}}
+
+* Introduction
+
+** Gravity Currents
+
+** Gravity Currents is 2D OK?
+
+* Numerical Methods
+
+** Xcompact3d
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- New codebase, uniting multiple projects in \texttt{Incompact3d}
+- High-order compact finite difference code
+- Highly scalable, strong scaling up to $\mathcal{O}\left(10^5^{}\right)$ CPUs
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+ATTR_LATEX: :width 0.8\columnwidth
+[[./figures/convergence-tgv2d.eps]]
+
+#+ATTR_LATEX: :width 0.8\columnwidth
+[[./figures/x3d-scaling.eps]]
+
+** Xcompact3d LMN
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Extended with variable-density solver to solve LMN approximation cite:Bartholomew2019
+\begin{align*}
+  \rho \frac{D\boldsymbol{u}}{Dt} &= -\boldsymbol{\nabla} p +
+                                    \boldsymbol{\nabla}\cdot\boldsymbol{\tau} + \rho\boldsymbol{g}
+  \\
+  \frac{D\rho}{Dt} &= -\rho\boldsymbol{\nabla}\cdot\boldsymbol{u}
+\end{align*}
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+ATTR_LATEX: :width 0.75\columnwidth
+[[./figures/mixlayer.png]]
+
+** Equation of state
+- Variable-density solver doesn't require ideal gas law
+- Can use arbitrary EOS
+- To verify, test against cite:Birman2005
+\begin{align*}
+  \rho \left( c \right) &= c \left( \rho_1 - \rho_2 \right) + \rho_2 \\
+  \boldsymbol{\nabla}\cdot\boldsymbol{u} &= 0 \\
+  \Rightarrow \frac{D\rho}{Dt} &= \frac{1}{ReSc} {\boldsymbol{\nabla}}^2 \rho
+\end{align*}
+
+** Equation of state
+
+#+CAPTION: Comparison of front velocities and energy budgets for 2D lock-exchange
+[[./figures/front_velocity_ebudg_veri.eps]]
+
+* Results
+
+** Instantaneous views
+
+** Instantaneous views
+
+** Evolution of front
+
+* Conclusions
+
+** Conclusion
+
+* Code availability
+
+** Code availability
+
+- Xcompact3d is available at: https://github.com/xcompact3d/Incompact3d 
+- Release preview on the =release= branch
+#+begin_export latex
+\begin{figure}
+  \centering
+  \subfloat{\includegraphics[width=0.4\textwidth]{./figures/visu_hill}}
+  \subfloat{\includegraphics[width=0.4\textwidth]{./figures/visu_wind11}}
+  \subfloat{\includegraphics[width=0.4\textwidth]{./figures/micro_jetYES}}
+  \subfloat{\includegraphics[width=0.4\textwidth]{./figures/visu_fractal2}}
+\end{figure}
+#+end_export
+
+* Backmatter                                                       :noexport:
+
+bibliography:/home/paul/Documents/Postdoc.bib
+bibliographystyle:plainnat
+
+
