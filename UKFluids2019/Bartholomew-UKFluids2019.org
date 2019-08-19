@@ -31,6 +31,9 @@
 
 ** Gravity Currents
 
+#+ATTR_LATEX: :width \columnwidth
+[[./figures/intro-grav-curr.png]]
+
 ** Gravity Currents is 2D OK?
 
 * Numerical Methods
