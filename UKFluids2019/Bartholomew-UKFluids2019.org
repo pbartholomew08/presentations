@@ -36,6 +36,11 @@
 
 ** Gravity Currents is 2D OK?
 
+- Gravity currents commonly associated with destructive events
+- Previous work by cite:Espath2014 showed different behaviour for 2D and 3D simulations in
+  Boussinesq limit
+- However literature claims 2D simulations sufficient for non-Boussinesq
+
 * Numerical Methods
 
 ** Xcompact3d
@@ -101,15 +106,57 @@
 
 * Results
 
-** Instantaneous views
+** 3D snapshots
 
-** Instantaneous views
+[[./figures/3D_view.eps]]
 
-** Evolution of front
+** 2D vs 3D snapshots
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Contours of $c=0.9$ at $t=15$
+- 2D contour (black) consistently led by 3D depth-averaged contour (red) for all density ratios
+- Note structure in 2D contours
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+ATTR_LATEX: :width \columnwidth
+[[./figures/c09-2d3d-t15.eps]]
+
+** Evolution of front location
+
+#+ATTR_LATEX: :width 0.85\textwidth
+[[./figures/2d3d_front_comparison.eps]]
 
 * Conclusions
 
-** Conclusion
+** Conclusion & future work
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Variable-density solver in \texttt{Xcompact3d} framework used to simulate non-Boussinesq gravity
+  currents
+- Comparison of 2D and 3D solutions shows different behaviour
+  - Speed of 3D current is increased
+  - Apparent dependency on density ratio
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Investigate over longer times
+- Investigate for higher Reynolds numbers
+- Investigate using free surface solver
 
 * Code availability
 
