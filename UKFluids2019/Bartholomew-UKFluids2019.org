@@ -24,6 +24,9 @@
 # Imperial College Logo, not to be changed!
 #+LATEX_HEADER: \institute{\includegraphics[height=0.7cm]{Imperial_1_Pantone_solid.eps}}
 
+# My customisations
+#+LATEX_HEADER: \setbeamerfont{caption}{size=\scriptsize}
+
 # # To repeat TOC at each section
 # #+LATEX_HEADER: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{\insertsection}\tableofcontents[currentsection]\end{frame}}
 
@@ -34,11 +37,15 @@
 #+ATTR_LATEX: :width \columnwidth
 [[./figures/intro-grav-curr.png]]
 
-** Gravity Currents is 2D OK?
+** Gravity Currents is 2D valid?
 
 - Gravity currents commonly associated with destructive events
 - Previous work by cite:Espath2014 showed different behaviour for 2D and 3D simulations in
   Boussinesq limit
+\begin{equation}
+  \frac{D\boldsymbol{u}}{Dt} = -\boldsymbol{\nabla}p + \boldsymbol{\nabla}\cdot\boldsymbol{\tau} +
+  \Delta{}\rho \boldsymbol{g}
+\end{equation}
 - However literature claims 2D simulations sufficient for non-Boussinesq
 
 * Numerical Methods
@@ -52,7 +59,7 @@
 
 - New codebase, uniting multiple projects in \texttt{Incompact3d}
 - High-order compact finite difference code
-- Highly scalable, strong scaling up to $\mathcal{O}\left(10^5^{}\right)$ CPUs
+- Highly scalable, strong scaling up to $\mathcal{O}\left(10^{5}\right)$ CPUs using =decomp2d=
 
 *** Right
 :PROPERTIES:
@@ -86,13 +93,13 @@
 :END:
 
 #+CAPTION: Hot/cold mixing layer
-#+ATTR_LATEX: :width 0.75\columnwidth
+#+ATTR_LATEX: :width 0.7\columnwidth
 [[./figures/mixlayer.png]]
 
 ** Equation of state
 - Variable-density solver doesn't require ideal gas law
 - Can use arbitrary EOS
-- To verify, test against cite:Birman2005
+- To verify, test against cite:Birman2005 for Boussinesq and non-Boussinesq cases
 \begin{align*}
   \rho \left( c \right) &= c \left( \rho_1 - \rho_2 \right) + \rho_2 \\
   \boldsymbol{\nabla}\cdot\boldsymbol{u} &= 0 \\
@@ -108,9 +115,11 @@
 
 ** 3D snapshots
 
+#+CAPTION: Concentration field at $t=15$, $\rho2/\rho1=0.998, 0.7, 0.4$
+#+ATTR_LATEX: :width 0.9\textwidth
 [[./figures/3D_view.eps]]
 
-** 2D vs 3D snapshots
+** 2D vs 3D comparison
 
 *** Left
 :PROPERTIES:
@@ -118,7 +127,7 @@
 :END:
 
 - Contours of $c=0.9$ at $t=15$
-- 2D contour (black) consistently led by 3D depth-averaged contour (red) for all density ratios
+- 2D front consistently led by 3D depth-averaged front for all density ratios
 - Note structure in 2D contours
 
 *** Right
@@ -126,12 +135,14 @@
 :BEAMER_COL: 0.5
 :END:
 
-#+ATTR_LATEX: :width \columnwidth
+#+CAPTION: 2D (black) & 3D (red) concentration contours
+#+ATTR_LATEX: :width 0.9\columnwidth
 [[./figures/c09-2d3d-t15.eps]]
 
 ** Evolution of front location
 
-#+ATTR_LATEX: :width 0.85\textwidth
+#+CAPTION: Evolution of 2D and 3D fronts
+#+ATTR_LATEX: :width 0.7\textwidth
 [[./figures/2d3d_front_comparison.eps]]
 
 * Conclusions
@@ -164,15 +175,10 @@
 
 - Xcompact3d is available at: https://github.com/xcompact3d/Incompact3d 
 - Release preview on the =release= branch
-#+begin_export latex
-\begin{figure}
-  \centering
-  \subfloat{\includegraphics[width=0.4\textwidth]{./figures/visu_hill}}
-  \subfloat{\includegraphics[width=0.4\textwidth]{./figures/visu_wind11}}
-  \subfloat{\includegraphics[width=0.4\textwidth]{./figures/micro_jetYES}}
-  \subfloat{\includegraphics[width=0.4\textwidth]{./figures/visu_fractal2}}
-\end{figure}
-#+end_export
+
+#+CAPTION: Examples using Xcompact3d
+#+ATTR_LATEX: :width \textwidth
+[[./figures/visu.png]]
 
 * Backmatter                                                       :noexport:
 
