@@ -1,6 +1,6 @@
 #+TITLE: Developing Fortran using Python and Literate Programming
 #+AUTHOR: Paul Bartholomew, Sylvain Laizet
-#+DATE: 2019
+#+DATE: September 2019
 
 #+OPTIONS: toc:t
 #+OPTIONS: H:2
@@ -43,28 +43,103 @@ I believe that the time is ripe for significantly better documentation of progra
 best achieve this by considering programs to be works of literature.
 Hence, my title: "Literate Programming."
 #+end_quote
-- Doesn't seem to have caught on
-  - Could be well suited for scientific computing
 #+begin_quote
 Instead of imagining that our main task is to instruct a computer what to do, let us concentrate on
 explaining to human beings what we want a computer to do.
 #+end_quote
+- Doesn't seem to have caught on
+- Could be well suited for scientific computing
+
+** Exploring literate programming
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Fits very well for producing reports
+- Can combine
+  - Calculation of result
+  - Display of result
+  - Discussion of results
+- =Jupyter= does something like this
+- Can we take this idea further?
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+CAPTION: Sections of report on Taylor Green Vortex
+#+ATTR_LATEX: :width \columnwidth
+[[./figures/tgv-literate.png]]
 
 ** The problem
 
-- =Incompact3d= is a CFD code for simulating turbulent flows
+- =Incompact3d= is a CFD code for simulating incompressible turbulent flows
 - Want to develop a free-surface solver
+
+#+CAPTION: Water surface with submerged obstacles
+#+ATTR_LATEX: :width 0.575 \textwidth
+[[./figures/mcsherry-freesurface.png]]
+
+** The problem (cont.)
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
 - The schemes implemented in =Incompact3d= are ill-suited to these problems
+
+#+CAPTION: Illustration of Gibbs' phenomenon
+#+ATTR_LATEX: :width \columnwidth
+[[./figures/gibbs-phenomenon.png]]
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
 - =WENO= schemes provide high-order accuracy without being susceptible to oscillations
   - Could simply code this in Fortran
   - Would like to leave behind something that is understandable
   - Testing code /inside/ a complex program is difficult
 
-* =WENO= schemes
+* Implementing a =WENO= scheme
 
-** =WENO= schemes
+** ~WENO~ schemes
+
+- Evaluate several upwind-biased stencils
+
+#+ATTR_LATEX: :width 0.6\textwidth
+[[./figures/weno-stencil.png]]
+- Check for "/smoothness/"
+- Combine /smooth/ stencils to obtain higher order approximation
+
+** ~WENO~ gradient computation
+
+- Weighted combination of stencils
+\begin{equation*}
+  \begin{split}
+    \left.\frac{\partial\phi}{\partial x}\right|_i &=
+    \begin{cases}
+      \left.\frac{\partial\phi}{\partial x}\right|^-_i & u > 0 \\
+      \left.\frac{\partial\phi}{\partial x}\right|^+_i & u < 0
+    \end{cases} \\
+    \left.\frac{\partial\phi}{\partial x}\right|^{\pm}_i &=
+  \end{split}
+\end{equation*}
 
 * Testing
 
 ** Testing
+
+Two possible approaches to testing the implementation:
+1) Add module directly to =Xcompact3d=
+2) Test module independently before adding to =Xcompact3d=
+
+* Conclusion
+
+** Conclusion
 
