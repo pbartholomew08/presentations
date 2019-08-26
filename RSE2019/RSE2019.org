@@ -59,7 +59,7 @@ explaining to human beings what we want a computer to do.
 
 - Fits very well for producing reports
 - Can combine
-  - Calculation of result
+  - Processing of result
   - Display of result
   - Discussion of results
 - =Jupyter= does something like this
@@ -110,14 +110,20 @@ explaining to human beings what we want a computer to do.
 
 ** ~WENO~ schemes
 
-- Evaluate several upwind-biased stencils
+- Evaluate several stencils
 
 #+ATTR_LATEX: :width 0.6\textwidth
 [[./figures/weno-stencil.png]]
+
 - Check for "/smoothness/"
 - Combine /smooth/ stencils to obtain higher order approximation
 
 ** ~WENO~ gradient computation
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
 
 - Weighted combination of stencils
 \begin{equation*}
@@ -127,9 +133,210 @@ explaining to human beings what we want a computer to do.
       \left.\frac{\partial\phi}{\partial x}\right|^-_i & u > 0 \\
       \left.\frac{\partial\phi}{\partial x}\right|^+_i & u < 0
     \end{cases} \\
-    \left.\frac{\partial\phi}{\partial x}\right|^{\pm}_i &=
+    \left.\frac{\partial\phi}{\partial x}\right|^{\pm}_i &= \left[ \omega_1 \left( 2 q^{\pm}_1 + 7
+        q^{\pm}_2 + 11 q^{\pm}_3 \right) \right.  \\
+    & + \omega_2 \left( -q^{\pm}_2 + 5q^{\pm}_3 + 2q^{\pm}_4 \right) \\
+    & \left.+ \omega_3 \left( 2q^{\pm}_3 + 5q^{\pm}_4 - q^{\pm}_5 \right) \right] / 6
   \end{split}
 \end{equation*}
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+CAPTION: Evaluation of \partial\phi/\partial{}x using fifth-order =WENO= scheme.
+#+NAME: src:calcgrad.f90
+#+begin_src f90
+  gradphi(i,j,k)=&
+       w1*(2.0*q1-7.0*q2+11.0*q3)&
+       +w2*(-q2+5.0*q3+2.0*q4)&
+       +w3*(2.0*q3+5.0*q4-q5)
+  gradphi(i,j,k)=gradphi(i,j,k)/6.0
+#+end_src
+
+** Stencil computation
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.6
+:END:
+
+- Stencils are defined based on fluxes
+\begin{equation*}
+  \begin{split}
+    q^{\pm}_1 = \frac{\phi_{i-2} - \phi_{i-3}}{\Delta x},&\ 
+    q^{\pm}_2 = \frac{\phi_{i-1} - \phi_{i-2}}{\Delta x}, \\
+    q^{\pm}_3 = \frac{\phi_i - \phi_{i-1}}{\Delta x},&\
+    q^{\pm}_4 = \frac{\phi_{i+1} - \phi_i}{\Delta x}, \\
+    q^{\pm}_5 =& \frac{\phi_{i+2} - \phi_{i+1}}{\Delta x},
+  \end{split}
+\end{equation*}
+
+- They are /symmetric/ about the gradient evaluation point $x_i$
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.4
+:END:
+
+#+CAPTION: Stencil evaluation for fifth-order =WENO= scheme.
+#+NAME: src:calcq.f90
+#+begin_src f90
+  q1=dsign*(phi(im2,jm2,km2)-phi(im3,jm3,km3))/deltax
+  q2=dsign*(phi(im1,jm1,km1)-phi(im2,jm2,km2))/deltax
+  q3=dsign*(phi(i,j,k)-phi(im1,jm1,km1))/deltax
+  q4=dsign*(phi(ip1,jp1,kp1)-phi(i,j,k))/deltax
+  q5=dsign*(phi(ip2,jp2,kp2)-phi(ip1,jp1,kp1))/deltax
+#+end_src
+
+** The stencil weights
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- The weights are the key to =weno=
+  - Smooth regions have $\approx$ weights $\rightarrow$ high-order
+  - If stencil $k$ contains discontinuity $\omega_{k}\rightarrow0$
+- Defined as
+\begin{equation*}
+  \omega_k = \frac{\alpha_k}{\sum_l \alpha_l}
+\end{equation*}
+# - *N.B.* \sum_{k}\omega_{k}=1
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+CAPTION: Weight calculation for fifth-order =WENO= scheme.
+#+NAME: src:calcweights.f90
+#+begin_src f90
+  w1 = a1 / (a1 + a2 + a3)
+  w2 = a2 / (a1 + a2 + a3)
+  w3 = a3 / (a1 + a2 + a3)
+#+end_src
+
+** The weight coefficients
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+\begin{equation*}
+  \alpha_k = \frac{C_k}{{\left( IS_k + \varepsilon \right)}^2}
+\end{equation*}
+
+#+CAPTION: Calculating the weighting coefficients
+#+begin_src f90 :noweb no-export
+  <<src:calc-indicators.f90>>
+  <<src:calc-a1.f90>>
+  <<src:calc-a2.f90>>
+  <<src:calc-a3.f90>>
+#+end_src
+
+#+CAPTION: Calculating coefficient $\alpha_1$
+#+NAME: src:calc-a1.f90
+#+begin_src f90
+  a1=1.0/(e+is1)**2/10.0
+#+end_src
+#+NAME: src:calc-a2.f90
+#+begin_src f90 :exports none
+  a2=6.0/(e+is2)**2/10.0
+#+end_src
+#+NAME: src:calc-a3.f90
+#+begin_src f90 :exports none
+  a3=3.0/(e+is3)**2/10.0
+#+end_src
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+CAPTION: Calculating the smoothness indicators
+#+NAME: src:calc-indicators.f90
+#+begin_src f90 :noweb no-export
+  <<src:calc-is1.f90>>
+  <<src:calc-is2.f90>>
+  <<src:calc-is3.f90>>
+#+end_src
+
+#+CAPTION: Calculating $IS_1$
+#+NAME: calc-is1.f90
+#+begin_src f90
+  is1=(13.0/12.0) &
+       ,*(phi(im2,jm2,km2)-2.0*phi(im1,jm1,km1)+phi(i,j,k))**2 &
+       +(phi(im2,jm2,km2)-4.0*phi(im1,jm1,km1)+three*phi(i,j,k))**2 &
+       /4.0
+#+end_src
+#+NAME: calc-is2.f90
+#+begin_src f90 :exports none
+  is2=(13.0/12.0)*(phi(im1,jm1,km1)-2.0*phi(i,j,k)+phi(ip1,jp1,kp1))**2&
+       +(phi(im1,jm1,km1)-phi(ip1,jp1,kp1))**2/4.0
+#+end_src
+#+NAME: calc-is3.f90
+#+begin_src f90 :exports none
+  is3=(13.0/12.0)*(phi(i,j,k)-2.0*phi(ip1,jp1,kp1)+phi(ip2,jp2,kp2))**2&
+       +(3.0*phi(i,j,k)-4.0*phi(ip1,jp1,kp1)+phi(ip2,jp2,kp2))**2/4.0
+#+end_src
+
+** The =weno= module
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+Bringing it all together.
+
+#+CAPTION: The ~weno~ module.
+#+NAME: src:weno.f90
+#+begin_src f90 :noweb no-export :tangle weno.f90
+  module weno
+    implicit none
+    private
+    public :: weno5
+  contains
+    <<src:weno5.f90>>
+  endmodule weno
+#+end_src
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+CAPTION: =WENO= subroutine definition.
+#+NAME: src:weno5.f90
+#+begin_src f90 :noweb no-export
+  subroutine weno5(gradphi, phi, advvel, &
+       axis, bc0, bcn, &
+       isize, jsize, ksize, &
+       dx, dy, dz)
+    implicit none
+    <<src:weno5-declarations.f90>>
+    <<src:weno5-setup.f90>>
+    do k = kstart, kend
+       do j = jstart, jend
+          !! Note, if axis==2 and y is stretched, need to set deltax here
+          do i = istart, iend
+             <<src:sign.f90>>
+             <<src:calcq.f90>>
+             <<src:calcsmooth.f90>>
+             <<src:calcweights.f90>>
+             <<src:calcgrad.f90>>
+          enddo
+          <<src:bcx.f90>>
+       enddo
+       <<src:bcy.f90>>
+    enddo
+    <<src:bcz.f90>>
+  endsubroutine weno5
+#+end_src
 
 * Testing
 
