@@ -453,3 +453,21 @@ Consider
 - @@latex:\color{green}{\textbf{+}}@@ :: Can explore results using =Python=
 - @@latex:\color{green}{\textbf{+}}@@ :: Using literate programming can embed testing + results into
      same source document
+
+** Code availability
+
+- This talk is available on github at[fn:1]
+  - It is /runnable/
+  - "Compiling" the talk's source with =emacs= produces this pdf + =weno.f90= + =Python= testing code
+- Xcompact3d is also available on github at[fn:2]
+  - Current release preview is on the =release= branch
+\\
+This work was undertaken as part of an =eCSE= project funded by =EPCC=
+#+ATTR_LATEX: :width 0.4\textwidth
+[[./figures/archer-logo.png]]
+
+* Footnotes
+
+[fn:1] https://github.com/pbartholomew08/presentations
+
+[fn:2] https://github.com/xcompact3d/Incompact3d 
