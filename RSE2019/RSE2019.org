@@ -346,7 +346,110 @@ Two possible approaches to testing the implementation:
 1) Add module directly to =Xcompact3d=
 2) Test module independently before adding to =Xcompact3d=
 
+Using =f2py= we can easily build =weno.f90= as a standalone module and call from Python to test
+- Easy to setup test cases
+- Rapid feedback
+
+** Testing on a smooth function
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+Consider
+\begin{equation*}
+  \begin{split}
+    f\left(x\right) &= \sin\left(x\right) \\
+    \Rightarrow f'\left(x\right) &= \cos\left(x\right)
+  \end{split}
+\end{equation*}
+
+#+CAPTION: Testing the x-derivative
+#+begin_src python :noweb yes
+  <<src:xinit.py>>
+  <<src:gradx.py>>
+  <<src:plotx.py>>
+#+end_src
+
+#+NAME: src:xinit.py
+#+begin_src python :exports none
+  for i in range(N):
+    for j in range(1):
+      for k in range(1):
+        u[i][j][k] = 1.0
+        phi[i][j][k] = f[i]
+        gradphi[i][j][k] = 0.0
+#+end_src
+#+NAME: src:gradx.py
+#+begin_src python :exports none
+  weno5(gradphi, phi, u, 1, 2, 2, dx, dx, dx)
+#+end_src
+#+NAME: src:plotx.py
+#+begin_src python :exports none
+  plt.plot(x, fpc, marker="o")
+  plt.plot(x, fp)
+  plt.title("Test x-derivative (smooth)")
+  plt.savefig("weno-smoothx.eps", bbox_inches="tight")
+#+end_src
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+CAPTION: Comparison of numerical and analytical derivative of $f\left(x\right)=\sin\left(x\right)$
+#+ATTR_LATEX: :width \columnwidth
+[[./figures/weno-smoothx.eps]]
+
+** Application to a pure advection equation
+
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Motivating implementation of ~weno5~
+
+\begin{equation*}
+  \frac{\partial\phi}{\partial t} + \boldsymbol{u}\cdot\boldsymbol{\nabla}\phi = 0
+\end{equation*}
+
+- In periodic domain, $\phi$ simply moves with velocity $u$
+- Simple to implement in =Python= using ~weno5~ + ~scipy~'s ode solvers
+- Domain $x\in\left[-1, 1\right]$ discretised with 200 points
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+CAPTION: Comparison of analytical solution and numerical solutions at $t=8, 10$
+#+ATTR_LATEX: :width \columnwidth
+[[./figures/adv_test.eps]]
+
 * Conclusion
 
 ** Conclusion
 
+*** Left
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- A =weno= scheme was implemented and has been incorporated into =Xcompact3d=
+- @@latex:\color{green}{\textbf{+}}@@ :: Using literate programming we can write programs in a way
+     that makes sense to us
+- @@latex:\color{green}{\textbf{+}}@@ :: Explanatory document automatically generated
+- @@latex:\color{red}{\textbf{--}}@@ :: Tooling isn't as strong as traditional tooling
+
+*** Right
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+- Using =f2py= simplifies testing
+- @@latex:\color{green}{\textbf{+}}@@ :: Quicker feedback on tests
+- @@latex:\color{green}{\textbf{+}}@@ :: Can explore results using =Python=
+- @@latex:\color{green}{\textbf{+}}@@ :: Using literate programming can embed testing + results into
+     same source document
