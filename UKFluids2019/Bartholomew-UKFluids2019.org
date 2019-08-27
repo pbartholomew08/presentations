@@ -42,11 +42,14 @@
 - Gravity currents commonly associated with destructive events
 - Previous work by cite:Espath2014 showed different behaviour for 2D and 3D simulations in
   Boussinesq limit
-\begin{equation}
+
+\begin{equation*}
   \frac{D\boldsymbol{u}}{Dt} = -\boldsymbol{\nabla}p + \boldsymbol{\nabla}\cdot\boldsymbol{\tau} +
   \Delta{}\rho \boldsymbol{g}
-\end{equation}
-- However literature claims 2D simulations sufficient for non-Boussinesq
+\end{equation*}
+
+- Literature claims 2D simulations sufficient for non-Boussinesq
+  - *N.B.* requires long time simulation
 
 * Numerical Methods
 
@@ -79,12 +82,13 @@
 :BEAMER_COL: 0.5
 :END:
 
-- Extended with variable-density solver to solve LMN approximation cite:Bartholomew2019
+Extended with variable-density solver to solve LMN approximation cite:Bartholomew2019
 \begin{align*}
   \rho \frac{D\boldsymbol{u}}{Dt} &= -\boldsymbol{\nabla} p +
                                     \boldsymbol{\nabla}\cdot\boldsymbol{\tau} + \rho\boldsymbol{g}
   \\
-  \frac{D\rho}{Dt} &= -\rho\boldsymbol{\nabla}\cdot\boldsymbol{u}
+  \frac{D\rho}{Dt} &= -\rho\boldsymbol{\nabla}\cdot\boldsymbol{u} \\
+  p^{\left(0\right)} &= \rho T,\ \boldsymbol{\nabla} p^{\left(0\right)} = 0
 \end{align*}
 
 *** Right
@@ -96,7 +100,8 @@
 #+ATTR_LATEX: :width 0.7\columnwidth
 [[./figures/mixlayer.png]]
 
-** Equation of state
+
+** Simulating gravity currents
 - Variable-density solver doesn't require ideal gas law
 - Can use arbitrary EOS
 - To verify, test against cite:Birman2005 for Boussinesq and non-Boussinesq cases
@@ -105,13 +110,28 @@
   \boldsymbol{\nabla}\cdot\boldsymbol{u} &= 0 \\
   \Rightarrow \frac{D\rho}{Dt} &= \frac{1}{ReSc} {\boldsymbol{\nabla}}^2 \rho
 \end{align*}
+* Results
 
-** Equation of state
+** 2D lock-exchange validation
+
+\begin{equation*}
+  \begin{split}
+    \boldsymbol{u} \left( \boldsymbol{x}, t=0 \right) &= \boldsymbol{0}\\
+    \rho \left( x, t=0 \right) &=
+    \begin{cases}
+      \rho_1 & x \leq 14 \\
+      \rho_2 & \mbox{otherwise}
+    \end{cases}
+  \end{split}
+\end{equation*}
+
+#+CAPTION: Time evolution of Boussinesq and non-Boussinesq 2D lock-exchange
+[[./figures/2d-lockexch.png]]
+
+** 2D lock-exchange validation
 
 #+CAPTION: Comparison of front velocities and energy budgets for 2D lock-exchange
 [[./figures/front_velocity_ebudg_veri.eps]]
-
-* Results
 
 ** 3D snapshots
 
@@ -180,9 +200,10 @@
 #+ATTR_LATEX: :width \textwidth
 [[./figures/visu.png]]
 
-* Backmatter                                                       :noexport:
+* References
+
+** References
 
 bibliography:/home/paul/Documents/Postdoc.bib
-bibliographystyle:plainnat
-
+bibliographystyle:plain
 

@@ -1,4 +1,4 @@
-% Created 2019-08-24 Sat 20:07
+% Created 2019-08-27 Tue 19:52
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
 \usepackage[utf8]{inputenc}
@@ -48,33 +48,38 @@
 
 
 \section{Introduction}
-\label{sec:org3c6523b}
+\label{sec:org05f97a0}
 
-\begin{frame}[label={sec:org6325c62}]{Gravity Currents}
+\begin{frame}[label={sec:org948e9d8}]{Gravity Currents}
 \begin{center}
 \includegraphics[width=\columnwidth]{./figures/intro-grav-curr.png}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org9ffcf78}]{Gravity Currents is 2D valid?}
+\begin{frame}[label={sec:orgca8aebf}]{Gravity Currents is 2D valid?}
 \begin{itemize}
 \item Gravity currents commonly associated with destructive events
 \item Previous work by \cite{Espath2014} showed different behaviour for 2D and 3D simulations in
 Boussinesq limit
 \end{itemize}
-\begin{equation}
+
+\begin{equation*}
   \frac{D\boldsymbol{u}}{Dt} = -\boldsymbol{\nabla}p + \boldsymbol{\nabla}\cdot\boldsymbol{\tau} +
   \Delta{}\rho \boldsymbol{g}
-\end{equation}
+\end{equation*}
+
 \begin{itemize}
-\item However literature claims 2D simulations sufficient for non-Boussinesq
+\item Literature claims 2D simulations sufficient for non-Boussinesq
+\begin{itemize}
+\item \alert{N.B.} requires long time simulation
+\end{itemize}
 \end{itemize}
 \end{frame}
 
 \section{Numerical Methods}
-\label{sec:org30b2d66}
+\label{sec:org1743ad3}
 
-\begin{frame}[label={sec:orgc470ebc},fragile]{Xcompact3d}
+\begin{frame}[label={sec:org0705b60},fragile]{Xcompact3d}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{itemize}
@@ -96,17 +101,16 @@ Boussinesq limit
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgfc15911}]{Xcompact3d LMN}
+\begin{frame}[label={sec:org772d5ba}]{Xcompact3d LMN}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
-\begin{itemize}
-\item Extended with variable-density solver to solve LMN approximation \cite{Bartholomew2019}
-\end{itemize}
+Extended with variable-density solver to solve LMN approximation \cite{Bartholomew2019}
 \begin{align*}
   \rho \frac{D\boldsymbol{u}}{Dt} &= -\boldsymbol{\nabla} p +
                                     \boldsymbol{\nabla}\cdot\boldsymbol{\tau} + \rho\boldsymbol{g}
   \\
-  \frac{D\rho}{Dt} &= -\rho\boldsymbol{\nabla}\cdot\boldsymbol{u}
+  \frac{D\rho}{Dt} &= -\rho\boldsymbol{\nabla}\cdot\boldsymbol{u} \\
+  p^{\left(0\right)} &= \rho T,\ \boldsymbol{\nabla} p^{\left(0\right)} = 0
 \end{align*}
 \end{column}
 
@@ -120,7 +124,8 @@ Boussinesq limit
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgebde279}]{Equation of state}
+
+\begin{frame}[label={sec:orgb3c64f4}]{Simulating gravity currents}
 \begin{itemize}
 \item Variable-density solver doesn't require ideal gas law
 \item Can use arbitrary EOS
@@ -132,8 +137,29 @@ Boussinesq limit
   \Rightarrow \frac{D\rho}{Dt} &= \frac{1}{ReSc} {\boldsymbol{\nabla}}^2 \rho
 \end{align*}
 \end{frame}
+\section{Results}
+\label{sec:org6bf3b24}
 
-\begin{frame}[label={sec:orgee54188}]{Equation of state}
+\begin{frame}[label={sec:org9cb657e}]{2D lock-exchange validation}
+\begin{equation*}
+  \begin{split}
+    \boldsymbol{u} \left( \boldsymbol{x}, t=0 \right) &= \boldsymbol{0}\\
+    \rho \left( x, t=0 \right) &=
+    \begin{cases}
+      \rho_1 & x \leq 14 \\
+      \rho_2 & \mbox{otherwise}
+    \end{cases}
+  \end{split}
+\end{equation*}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./figures/2d-lockexch.png}
+\caption{Time evolution of Boussinesq and non-Boussinesq 2D lock-exchange}
+\end{figure}
+\end{frame}
+
+\begin{frame}[label={sec:org0863305}]{2D lock-exchange validation}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{./figures/front_velocity_ebudg_veri.eps}
@@ -141,10 +167,7 @@ Boussinesq limit
 \end{figure}
 \end{frame}
 
-\section{Results}
-\label{sec:org5b3bf26}
-
-\begin{frame}[label={sec:org2af847c}]{3D snapshots}
+\begin{frame}[label={sec:orgd3bab12}]{3D snapshots}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.9\textwidth]{./figures/3D_view.eps}
@@ -152,7 +175,7 @@ Boussinesq limit
 \end{figure}
 \end{frame}
 
-\begin{frame}[label={sec:orgab2c8d8}]{2D vs 3D comparison}
+\begin{frame}[label={sec:orgddeb3a6}]{2D vs 3D comparison}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{itemize}
@@ -172,7 +195,7 @@ Boussinesq limit
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgcad99c8}]{Evolution of front location}
+\begin{frame}[label={sec:orgc45dc6b}]{Evolution of front location}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\textwidth]{./figures/2d3d_front_comparison.eps}
@@ -181,9 +204,9 @@ Boussinesq limit
 \end{frame}
 
 \section{Conclusions}
-\label{sec:org09693ac}
+\label{sec:org929b556}
 
-\begin{frame}[label={sec:orgb1fa8e2}]{Conclusion \& future work}
+\begin{frame}[label={sec:orgd0ca15b}]{Conclusion \& future work}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{itemize}
@@ -208,9 +231,9 @@ currents
 \end{frame}
 
 \section{Code availability}
-\label{sec:org39d1ae2}
+\label{sec:org6f1cd98}
 
-\begin{frame}[label={sec:org6b483db},fragile]{Code availability}
+\begin{frame}[label={sec:orgda36814},fragile]{Code availability}
  \begin{itemize}
 \item Xcompact3d is available at: \url{https://github.com/xcompact3d/Incompact3d}
 \item Release preview on the \texttt{release} branch
@@ -221,5 +244,13 @@ currents
 \includegraphics[width=\textwidth]{./figures/visu.png}
 \caption{Examples using Xcompact3d}
 \end{figure}
+\end{frame}
+
+\section{References}
+\label{sec:org7ab960d}
+
+\begin{frame}[label={sec:org2c9fd8c}]{References}
+\bibliography{../../../../Documents/Postdoc}
+\bibliographystyle{plain}
 \end{frame}
 \end{document}
