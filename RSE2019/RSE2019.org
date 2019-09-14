@@ -31,9 +31,15 @@
 
 ** My programming career
 
-- Seems to have gone backwards:
-  - ``Progress'': =FORTRAN= -> =C= -> =Python=
-  - Experience: =Python= -> =C= -> =FORTRAN=
+Seems to have gone backwards:
+
+#+CAPTION: "Progress"
+#+ATTR_LATEX: :width 0.9\textwidth
+[[./figures/lang-progress.png]]
+
+#+CAPTION: Experience
+#+ATTR_LATEX: :width 0.9\textwidth
+[[./figures/lang-experience.png]]
 
 ** Literate programming: an old idea
 
@@ -125,7 +131,7 @@ explaining to human beings what we want a computer to do.
 :BEAMER_COL: 0.5
 :END:
 
-- Weighted combination of stencils
+**** Weighted combination of stenciles
 \begin{equation*}
   \begin{split}
     \left.\frac{\partial\phi}{\partial x}\right|_i &=
@@ -162,7 +168,7 @@ explaining to human beings what we want a computer to do.
 :BEAMER_COL: 0.6
 :END:
 
-- Stencils are defined based on fluxes
+**** Stencil definition
 \begin{equation*}
   \begin{split}
     q^{\pm}_1 = \frac{\phi_{i-2} - \phi_{i-3}}{\Delta x},&\ 
@@ -197,14 +203,14 @@ explaining to human beings what we want a computer to do.
 :BEAMER_COL: 0.5
 :END:
 
-- The weights are the key to =weno=
-  - Smooth regions have $\approx$ weights $\rightarrow$ high-order
-  - If stencil $k$ contains discontinuity $\omega_{k}\rightarrow0$
-- Defined as
+**** The key to =weno=
+- Smooth regions have $\approx$ weights $\rightarrow$ high-order
+- If stencil $k$ contains discontinuity $\omega_{k}\rightarrow0$
+
+**** Definition
 \begin{equation*}
   \omega_k = \frac{\alpha_k}{\sum_l \alpha_l}
 \end{equation*}
-# - *N.B.* \sum_{k}\omega_{k}=1
 
 *** Right
 :PROPERTIES:
@@ -226,9 +232,13 @@ explaining to human beings what we want a computer to do.
 :BEAMER_COL: 0.5
 :END:
 
-\begin{equation*}
-  \alpha_k = \frac{C_k}{{\left( IS_k + \varepsilon \right)}^2}
-\end{equation*}
+#+begin_export latex
+\begin{block}{Definition}
+  \begin{equation*}
+    \alpha_k = \frac{C_k}{{\left( IS_k + \varepsilon \right)}^2}
+  \end{equation*}
+\end{block}
+#+end_export
 
 #+CAPTION: Calculating the weighting coefficients
 #+begin_src f90 :noweb no-export
@@ -291,8 +301,6 @@ explaining to human beings what we want a computer to do.
 :BEAMER_COL: 0.5
 :END:
 
-Bringing it all together.
-
 #+CAPTION: The ~weno~ module.
 #+NAME: src:weno.f90
 #+begin_src f90 :noweb no-export :tangle weno.f90
@@ -342,11 +350,12 @@ Bringing it all together.
 
 ** Testing
 
-Two possible approaches to testing the implementation:
-1) Add module directly to =Xcompact3d=
-2) Test module independently before adding to =Xcompact3d=
+*** Approaches to testing
+- Add module directly to =Xcompact3d=
+- Test module independently before adding to =Xcompact3d=
 
-Using =f2py= we can easily build =weno.f90= as a standalone module and call from Python to test
+*** Using =f2py=
+Can easily build =weno.f90= as a standalone module and call from Python to test
 - Easy to setup test cases
 - Rapid feedback
 
@@ -357,13 +366,17 @@ Using =f2py= we can easily build =weno.f90= as a standalone module and call from
 :BEAMER_COL: 0.5
 :END:
 
-Consider
-\begin{equation*}
-  \begin{split}
-    f\left(x\right) &= \sin\left(x\right) \\
-    \Rightarrow f'\left(x\right) &= \cos\left(x\right)
-  \end{split}
-\end{equation*}
+#+begin_export latex
+\begin{block}{Consider}
+  \begin{equation*}
+    \begin{split}
+      f\left(x\right) &= \sin\left(x\right) \\
+      \Rightarrow f'\left(x\right) &= \cos\left(x\right)
+    \end{split}
+  \end{equation*}
+\end{block}
+#+end_export
+
 
 #+CAPTION: Testing the x-derivative
 #+begin_src python :noweb yes
@@ -409,8 +422,7 @@ Consider
 :BEAMER_COL: 0.5
 :END:
 
-- Motivating implementation of ~weno5~
-
+**** Motivating implementation
 \begin{equation*}
   \frac{\partial\phi}{\partial t} + \boldsymbol{u}\cdot\boldsymbol{\nabla}\phi = 0
 \end{equation*}
@@ -461,8 +473,10 @@ Consider
   - "Compiling" the talk's source with =emacs= produces this pdf + =weno.f90= + =Python= testing code
 - Xcompact3d is also available on github at[fn:2]
   - Current release preview is on the =release= branch
-\\
-This work was undertaken as part of an =eCSE= project funded by =EPCC=
+
+*** Acknowledgement
+
+Work undertaken as part of an =eCSE= project funded by =EPCC=
 #+ATTR_LATEX: :width 0.4\textwidth
 [[./figures/archer-logo.png]]
 
