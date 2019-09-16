@@ -277,19 +277,19 @@ explaining to human beings what we want a computer to do.
 #+end_src
 
 #+CAPTION: Calculating $IS_1$
-#+NAME: calc-is1.f90
+#+NAME: src:calc-is1.f90
 #+begin_src f90
   is1=(13.0/12.0) &
        ,*(phi(im2,jm2,km2)-2.0*phi(im1,jm1,km1)+phi(i,j,k))**2 &
        +(phi(im2,jm2,km2)-4.0*phi(im1,jm1,km1)+three*phi(i,j,k))**2 &
        /4.0
 #+end_src
-#+NAME: calc-is2.f90
+#+NAME: src:calc-is2.f90
 #+begin_src f90 :exports none
   is2=(13.0/12.0)*(phi(im1,jm1,km1)-2.0*phi(i,j,k)+phi(ip1,jp1,kp1))**2&
        +(phi(im1,jm1,km1)-phi(ip1,jp1,kp1))**2/4.0
 #+end_src
-#+NAME: calc-is3.f90
+#+NAME: src:calc-is3.f90
 #+begin_src f90 :exports none
   is3=(13.0/12.0)*(phi(i,j,k)-2.0*phi(ip1,jp1,kp1)+phi(ip2,jp2,kp2))**2&
        +(3.0*phi(i,j,k)-4.0*phi(ip1,jp1,kp1)+phi(ip2,jp2,kp2))**2/4.0
@@ -314,6 +314,15 @@ explaining to human beings what we want a computer to do.
   endmodule weno
 #+end_src
 
+#+CAPTION: Calculate $\partial\phi/\partial{}x$ using =weno=
+#+NAME: src:wenograd.f90
+#+begin_src f90 :noweb no-export
+  <<src:calcq.f90>>
+  <<src:calc-weight-coeffs.f90>>
+  <<src:calcweights.f90>>
+  <<src:calcgrad.f90>>
+#+end_src
+
 *** Right
 :PROPERTIES:
 :BEAMER_COL: 0.5
@@ -334,10 +343,7 @@ explaining to human beings what we want a computer to do.
           !! Note, if axis==2 and y is stretched, need to set deltax here
           do i = istart, iend
              <<src:sign.f90>>
-             <<src:calcq.f90>>
-             <<src:calc-weight-coeffs.f90>>
-             <<src:calcweights.f90>>
-             <<src:calcgrad.f90>>
+             <<src:wenograd.f90>>
           enddo
           <<src:bcx.f90>>
        enddo
@@ -475,40 +481,40 @@ woven document.
 
 #+NAME: src:weno5-setup.f90
 #+begin_src f90
-    !! Defaults
-    istart = 1
-    iend = isize
-    jstart = 1
-    jend = jsize
-    kstart = 1
-    kend = ksize
+  !! Defaults
+  istart = 1
+  iend = isize
+  jstart = 1
+  jend = jsize
+  kstart = 1
+  kend = ksize
 
-    istep = 0
-    jstep = 0
-    kstep = 0
+  idelta = 0
+  jdelta = 0
+  kdelta = 0
 
-    if (axis==1) then
-       deltax = dx
+  if (axis==1) then
+     deltax = dx
 
-       istart = 4
-       iend = isize - 3
-       istep = 1
-    elseif (axis==2) then
-       deltax = dy
+     istart = 4
+     iend = isize - 3
+     idelta = 1
+  elseif (axis==2) then
+     deltax = dy
 
-       jstart = 4
-       jend = jsize - 3
-       jstep = 1
-    elseif (axis==3) then
-       deltax = dz
+     jstart = 4
+     jend = jsize - 3
+     jdelta = 1
+  elseif (axis==3) then
+     deltax = dz
 
-       kstart = 4
-       kend = ksize - 3
-       kstep = 1
-    else
-       print *, "ERROR: Invalid axis passed to WENO5"
-       stop
-    endif
+     kstart = 4
+     kend = ksize - 3
+     kdelta = 1
+  else
+     print *, "ERROR: Invalid axis passed to WENO5"
+     stop
+  endif
 #+end_src
 
 ** Upwinding
@@ -519,15 +525,15 @@ woven document.
   if (advvel(i, j, k) > zero) then
      dsign = one
 
-     istep = istep
-     jstep = jstep
-     kstep = kstep
+     istep = idelta
+     jstep = jdelta
+     kstep = kdelta
   elseif (advvel(i, j, k) < zero) then
      dsign = -one
 
-     istep = -istep
-     jstep = -jstep
-     kstep = -kstep
+     istep = -idelta
+     jstep = -jdelta
+     kstep = -kdelta
   else
      gradphi(i, j, k) = zero
      cycle
@@ -594,10 +600,7 @@ woven document.
               ip1 = isize
               ip2 = isize - 1
            endif
-           <<src:calcq.f90>>
-           <<src:calc-weight-coeffs.f90>>
-           <<src:calcweights.f90>>
-           <<src:calcgrad.f90>>
+           <<src:wenograd.f90>>
         endif
 
         i = 2
@@ -621,10 +624,7 @@ woven document.
               ip1 = i - 1
               ip2 = isize
            endif
-           <<src:calcq.f90>>
-           <<src:calc-weight-coeffs.f90>>
-           <<src:calcweights.f90>>
-           <<src:calcgrad.f90>>
+           <<src:wenograd.f90>>
         endif
 
         i = 3
@@ -648,10 +648,7 @@ woven document.
               ip1 = i - 1
               ip2 = i - 2
            endif
-           <<src:calcq.f90>>
-           <<src:calc-weight-coeffs.f90>>
-           <<src:calcweights.f90>>
-           <<src:calcgrad.f90>>
+           <<src:wenograd.f90>>
         endif
 
         i = isize
@@ -675,10 +672,7 @@ woven document.
               ip1 = i - 1
               ip2 = i - 2
            endif
-           <<src:calcq.f90>>
-           <<src:calc-weight-coeffs.f90>>
-           <<src:calcweights.f90>>
-           <<src:calcgrad.f90>>
+           <<src:wenograd.f90>>
         endif
 
         i = isize - 1
@@ -702,10 +696,7 @@ woven document.
               ip1 = i - 1
               ip2 = i - 2
            endif
-           <<src:calcq.f90>>
-           <<src:calc-weight-coeffs.f90>>
-           <<src:calcweights.f90>>
-           <<src:calcgrad.f90>>
+           <<src:wenograd.f90>>
         endif
 
         i = isize - 2
@@ -729,10 +720,7 @@ woven document.
               ip1 = i - 1
               ip2 = i - 2
            endif
-           <<src:calcq.f90>>
-           <<src:calc-weight-coeffs.f90>>
-           <<src:calcweights.f90>>
-           <<src:calcgrad.f90>>
+           <<src:wenograd.f90>>
         endif
      else
         !! Use second order
@@ -800,10 +788,7 @@ woven document.
                  jp1 = jsize
                  jp2 = jsize - 1
               endif
-              <<src:calcq.f90>>
-              <<src:calc-weight-coeffs.f90>>
-              <<src:calcweights.f90>>
-              <<src:calcgrad.f90>>
+              <<src:wenograd.f90>>
            endif
 
            j = 2
@@ -827,10 +812,7 @@ woven document.
                  jp1 = j - 1
                  jp2 = jsize
               endif
-              <<src:calcq.f90>>
-              <<src:calc-weight-coeffs.f90>>
-              <<src:calcweights.f90>>
-              <<src:calcgrad.f90>>
+              <<src:wenograd.f90>>
            endif
 
            j = 3
@@ -854,10 +836,7 @@ woven document.
                  jp1 = j - 1
                  jp2 = j - 2
               endif
-              <<src:calcq.f90>>
-              <<src:calc-weight-coeffs.f90>>
-              <<src:calcweights.f90>>
-              <<src:calcgrad.f90>>
+              <<src:wenograd.f90>>
            endif
 
            j = jsize
@@ -881,10 +860,7 @@ woven document.
                  jp1 = j - 1
                  jp2 = j - 2
               endif
-              <<src:calcq.f90>>
-              <<src:calc-weight-coeffs.f90>>
-              <<src:calcweights.f90>>
-              <<src:calcgrad.f90>>
+              <<src:wenograd.f90>>
            endif
 
            j = jsize - 1
@@ -908,10 +884,7 @@ woven document.
                  jp1 = j - 1
                  jp2 = j - 2
               endif
-              <<src:calcq.f90>>
-              <<src:calc-weight-coeffs.f90>>
-              <<src:calcweights.f90>>
-              <<src:calcgrad.f90>>
+              <<src:wenograd.f90>>
            endif
 
            j = jsize - 2
@@ -935,10 +908,7 @@ woven document.
                  jp1 = j - 1
                  jp2 = j - 2
               endif
-              <<src:calcq.f90>>
-              <<src:calc-weight-coeffs.f90>>
-              <<src:calcweights.f90>>
-              <<src:calcgrad.f90>>
+              <<src:wenograd.f90>>
            endif
         enddo
      else
@@ -1010,10 +980,7 @@ woven document.
                     kp1 = ksize
                     kp2 = ksize - 1
                  endif
-                 <<src:calcq.f90>>
-                 <<src:calc-weight-coeffs.f90>>
-                 <<src:calcweights.f90>>
-                 <<src:calcgrad.f90>>
+                 <<src:wenograd.f90>>
               endif
 
               k = 2
@@ -1037,10 +1004,7 @@ woven document.
                     kp1 = k - 1
                     kp2 = ksize
                  endif
-                 <<src:calcq.f90>>
-                 <<src:calc-weight-coeffs.f90>>
-                 <<src:calcweights.f90>>
-                 <<src:calcgrad.f90>>
+                 <<src:wenograd.f90>>
               endif
 
               k = 3
@@ -1064,10 +1028,7 @@ woven document.
                     kp1 = k - 1
                     kp2 = k - 2
                  endif
-                 <<src:calcq.f90>>
-                 <<src:calc-weight-coeffs.f90>>
-                 <<src:calcweights.f90>>
-                 <<src:calcgrad.f90>>
+                 <<src:wenograd.f90>>
               endif
 
               k = ksize
@@ -1091,10 +1052,7 @@ woven document.
                     kp1 = k - 1
                     kp2 = k - 2
                  endif
-                 <<src:calcq.f90>>
-                 <<src:calc-weight-coeffs.f90>>
-                 <<src:calcweights.f90>>
-                 <<src:calcgrad.f90>>
+                 <<src:wenograd.f90>>
               endif
 
               k = ksize - 1
@@ -1118,10 +1076,7 @@ woven document.
                     kp1 = k - 1
                     kp2 = k - 2
                  endif
-                 <<src:calcq.f90>>
-                 <<src:calc-weight-coeffs.f90>>
-                 <<src:calcweights.f90>>
-                 <<src:calcgrad.f90>>
+                 <<src:wenograd.f90>>
               endif
 
               k = ksize - 2
@@ -1145,10 +1100,7 @@ woven document.
                     kp1 = k - 1
                     kp2 = k - 2
                  endif
-                 <<src:calcq.f90>>
-                 <<src:calc-weight-coeffs.f90>>
-                 <<src:calcweights.f90>>
-                 <<src:calcgrad.f90>>
+                 <<src:wenograd.f90>>
               endif
            enddo
         enddo
@@ -1197,7 +1149,7 @@ Because we have used ~implicit none~, we must declare all our variables.
   real(kind=8), dimension(isize, jsize, ksize), intent(inout) :: gradphi
 
   integer :: i, j, k
-  integer :: istep, jstep, kstep
+  integer :: istep, jstep, kstep, idelta, jdelta, kdelta
   integer :: istart, jstart, kstart, iend, jend, kend
   integer :: im1, im2, im3, ip1, ip2
   integer :: jm1, jm2, jm3, jp1, jp2
@@ -1224,6 +1176,7 @@ Because we have used ~implicit none~, we must declare all our variables.
   real(kind=8) :: deltax
 #+end_src
 ** Testing
+*** Test derivative
 
 #+NAME: src:test-weno5-sin.py
 #+begin_src python :noweb no-export :tangle weno-test.py
@@ -1236,10 +1189,6 @@ Because we have used ~implicit none~, we must declare all our variables.
   <<src:xinit.py>>
   <<src:gradx.py>>
   <<src:plotx.py>>
-
-  # Test with discontinuity
-  <<src:shift.py>>
-  <<src:test-discontinuous.py>>
 #+end_src
 
 #+NAME: src:import.py
@@ -1304,26 +1253,183 @@ Because we have used ~implicit none~, we must declare all our variables.
     f[i] += 1
 #+end_src
 
-#+NAME: src:test-discontinuous.py
+*** Test advection equation
+
+As a more realistic test, consider the advection equation
+\begin{equation}
+  \frac{\partial\phi}{\partial t} + \boldsymbol{u}\cdot\boldsymbol{\nabla}\phi = 0
+\end{equation}
+which we will solve in one-dimension, using explicit time advancement and a prescribed velocity
+field.
+We will use the explicit integrator provided by =scipy= to integrate the function.
+The code to calculate the right hand side is given in listing\nbsp[[src:rhs.py]].
+
+#+CAPTION: Compute the right hand side of advection equation
+#+NAME: src:rhs.py
 #+begin_src python
-  # Test x
-  u = np.zeros((N, 1, 1), dtype=np.float64, order="F")
-  phi = np.zeros((N, 1, 1), dtype=np.float64, order="F")
-  gradphi = np.zeros((N, 1, 1), dtype=np.float64, order="F")
-  for i in range(N):
-    for j in range(1):
-      for k in range(1):
-        u[i][j][k] = 1.0
-        phi[i][j][k] = f[i]
-        gradphi[i][j][k] = 0.0
+  def calc_rhs(t, y, f_args):
+      u = f_args[0]  # The velocity field
+      dx = f_args[1] # The grid spacing
+      n = len(y)
 
-  weno5(gradphi, phi, u, 1, 2, 2, dx, dx, dx)
+      y3d = np.array(y).reshape((n, 1, 1), order="F")
+      u3d = u * np.ones(n).reshape((n, 1, 1), order="F")
+      dydx = np.zeros((n, 1, 1), order="F")
 
-  fpc = np.zeros(N)
-  for i in range(N):
-    fpc[i] = gradphi[i][0][0]
-  plt.plot(x, fpc, marker="o")
-  plt.title("Test x-derivative (discontinuous)")
-  plt.savefig("weno-discontinuousx.eps")
-  plt.close()
+      weno5(dydx, y3d, u3d, 1, 0, 0, dx, dx, dx)
+
+      return -u*dydx.reshape(n)
+
 #+end_src
+
+As an initial field we will consider the function used by cite:Jiang1996
+\begin{equation}
+  \phi \left( x, 0 \right) =
+  \begin{cases}
+    \frac{1}{6} \left( g \left(x, \beta, z - \delta \right) + g\left(x, \beta, z + \delta \right) +
+      4g \left(x, \beta, z \right), \right) & -0.8\leq x \leq-0.6 \\
+    1 & -0.4 \leq x \leq -0.2 \\
+    1 - \left|10\left(x-0.1\right)\right| & 0 \leq x \leq 0.2\\
+    \frac{1}{6} \left( f \left(x, \alpha, a - \delta \right) + f\left(x, \alpha, a + \delta \right) +
+      4f \left(x, \alpha, a \right), \right) & 0.4\leq x \leq 0.6 \\
+    0 & \mbox{otherwise}
+  \end{cases}
+\end{equation}
+where $g\left(x,\beta,z\right)=e^{-\beta\left(x-z\right)^2}$ and
+$f\left(x,\alpha,a\right)=\sqrt(max\left(1 - \alpha^{2}\left(x-a\right)^{2}, 0\right)$ with the associated
+initialisation code in listing\nbsp[[src:jiang-init.py]]
+
+#+CAPTION: Initialisation function for advection test
+#+NAME: src:jiang-init.py
+#+begin_src python 
+  def init_jiang(x):
+
+      phi = []
+      n = len(x)
+
+      a = 0.5
+      z = -0.7
+      d = 0.005
+      alpha = 10.0
+      beta = log10(2.0) / (36 * d**2)
+
+      for i in range(n):
+          if (-0.8 <= x[i]) and (x[i] <= -0.6):
+              phi.append(g(x[i], beta, z - d) + g(x[i], beta, z + d) + 4 * g(x[i], beta, z))
+              phi[-1] /= 6.0
+          elif (-0.4 <= x[i]) and (x[i] <= -0.2):
+              phi.append(1)
+          elif (0 <= x[i]) and (x[i] <= 0.2):
+              phi.append(1 - abs(10 * (x[i] - 0.1)))
+          elif (0.4 <= x[i]) and (x[i] <= 0.6):
+              phi.append(f(x[i], alpha, a - d) + f(x[i], alpha, a + d) + 4 * f(x[i], alpha, a))
+              phi[-1] /= 6.0
+          else:
+              phi.append(0)
+
+      return phi
+
+  def g(x, b, z):
+      return exp(-b * (x - z)**2)
+
+  def f(x, alpha, a):
+      return sqrt(max(1 - (alpha**2) * (x - a)**2, 0))
+#+end_src
+
+The code to perform the integration is then
+#+begin_src python :noweb no-export :tangle test-adv.py
+  from math import sin, pi, log, log10, sqrt, exp
+  import numpy as np
+  from scipy.integrate import ode
+  import matplotlib.pyplot as plt
+  import weno
+  weno5 = weno.weno.weno5
+
+  <<src:jiang-init.py>>
+  <<src:rhs.py>>
+  <<src:rk3.py>>
+
+  L=2.0
+  U=1.0
+  N=200
+  CFL = 0.2
+  T=10
+
+  dx=L/float(N)
+  x = []
+  for i in range(N):
+      x.append(i * dx - 1)
+  xl = -0.2
+  xr = 0.2
+
+  dt = CFL * dx / U
+
+  # r = ode(calc_rhs).set_integrator("dopri5", atol=1.0e-16, rtol=1.0e-8)
+  r = rk3(calc_rhs)
+  r.set_initial_value(init_jiang(x))
+  r.set_f_params((U, dx))
+
+  passed_eight = False
+  while r.successful() and r.t < T:
+      if r.t == 0:
+          plt.plot(x, r.y, color="black")
+      elif (r.t >= 8) and (not passed_eight):
+          plt.plot(x, r.y, ls="", marker="o", color="blue")
+          passed_eight = True
+      print r.t, min(r.y), max(r.y)
+      r.integrate(r.t+dt)
+
+  plt.plot(x, r.y, ls="", marker="o", color="red")
+  plt.savefig("adv_test.eps", bbox_inches="tight")
+#+end_src
+
+To confirm the integration was working, an RK3 function was implemented according to cite:Croce2004,
+implementing the same interface as ~ode~ from =scipy=.
+
+#+CAPTION: Runge-Kutta 3 implementation
+#+NAME: src:rk3.py
+#+begin_src python
+  class rk3():
+
+      def __init__(self, f, t = 0):
+
+          self.f = f
+          self.t = 0
+
+      def set_initial_value(self, y0):
+
+          self.y = y0
+
+      def set_f_params(self, f_args):
+          self.f_args = f_args
+
+      def successful(self):
+          return True
+
+      def integrate(self, tnext):
+
+          dt = tnext - self.t
+
+          # Stage 1
+          f0 = self.f(self.t, self.y, self.f_args)
+          y1 = self.y + dt * f0
+
+          # Stage 2
+          f1 = self.f(self.t, y1, self.f_args)
+          y2 = self.y + (dt / 4.0) * (f0 + f1)
+
+          # Stage 3
+          f2 = self.f(self.t, y2, self.f_args)
+          self.y += (dt / 6.0) * (f0 + 4 * f2 + f1)
+
+          self.t += dt
+#+end_src
+
+The result is compared with the analytical solution at $t=8, 10$ in /fig./\nbsp[[fig:adv-test]] and shows
+excellent agreement compared with results in the literature cite:Jiang1996 with the maxima and
+minima well captured.
+
+#+CAPTION: Comparison of solution of advection equation with analytical solution
+#+ATTR_LATEX: :options :width 0.5\textwidth
+#+NAME: fig:adv-test
+[[./adv_test.eps]]
